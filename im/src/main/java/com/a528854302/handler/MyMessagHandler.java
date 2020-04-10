@@ -36,7 +36,8 @@ public class MyMessagHandler  extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
         Long uid = Long.parseLong((String) session.getAttributes().get("uid"));
-        JsonNode jsonNode = objectMapper.readTree(textMessage.getPayload());
+        String payload = textMessage.getPayload();
+        JsonNode jsonNode = objectMapper.readTree(payload);
         Long toId = jsonNode.get("toId").asLong();
         String msg = jsonNode.get("msg").asText();
         Message message = new Message();
