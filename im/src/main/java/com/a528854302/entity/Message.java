@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Message {
     @Id
-    private ObjectId id;
+    private String id;
     /*** 消息状态，0-未读，1-已读 */
     @Indexed
     private Integer status;

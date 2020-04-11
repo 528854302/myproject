@@ -13,4 +13,5 @@ public interface BaseService<T> {
     boolean deleteById(String id);
 
     boolean insert(T t );
+
 }

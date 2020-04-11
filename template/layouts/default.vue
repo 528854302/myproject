@@ -8,10 +8,10 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="/">首页</b-nav-item>
+          <b-nav-item to="/">首页</b-nav-item>
           <b-nav-item v-b-toggle.sidebar-1 >通讯录</b-nav-item>
-          <b-nav-item href="/job">招聘</b-nav-item>
-          <b-nav-item href="/job">发现</b-nav-item>
+          <b-nav-item to="/job">招聘</b-nav-item>
+          <b-nav-item to="/job">发现</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

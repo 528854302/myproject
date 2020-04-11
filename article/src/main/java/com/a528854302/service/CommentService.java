@@ -43,7 +43,7 @@ public class CommentService implements BaseService<Comment> {
 
     @Override
     public boolean insert(Comment comment) {
-        comment.set_id(IdWorker.getIdStr());
+        comment.setId(IdWorker.getIdStr());
         comment.setCreatetime(new Date());
         return repository.save(comment)!=null?true:false;
     }

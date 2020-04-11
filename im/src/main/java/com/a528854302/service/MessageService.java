@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageService implements BaseService<Message>{
@@ -41,7 +42,11 @@ public class MessageService implements BaseService<Message>{
 
     @Override
     public Message selectById(String id) {
-        return repository.findById(id).get();
+        Optional<Message> optional = repository.findById(id);
+        if (optional.isPresent()){
+            return optional.get();
+        }
+        return null;
     }
 
     @Override
@@ -57,7 +62,7 @@ public class MessageService implements BaseService<Message>{
 
     @Override
     public boolean insert(Message message) {
-        message.setId(ObjectId.get());
+        //message.setId(ObjectId.get());
         message.setSendDate(new Date());
         message.setStatus(0);
         return repository.save(message)!=null?true:false;

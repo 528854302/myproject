@@ -6,7 +6,8 @@ module.exports = {
     },
     {
       src: '~plugins/bootstrapvue'
-    }],
+    }
+    ],
   css: [
     'element-ui/lib/theme-chalk/index.css',
     'bootstrap-vue/dist/bootstrap-vue.css',

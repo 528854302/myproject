@@ -18,7 +18,7 @@
                 <template v-slot:aside>
                   <b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar>
                 </template>
-                <a :href="`/articledetail`"><h5 class="mt-0" :key="a.title">{{a.title}}</h5></a>
+                <router-link :to="`/article/${a.id}`"><h5 class="mt-0" :key="a.title">{{a.title}}</h5></router-link>
                 <p :key="a.content" style="max-height:50px;overflow: hidden">
                   {{a.content}}
                 </p>
@@ -37,7 +37,9 @@
                 <template v-slot:aside>
                   <a href="http://www.baidu.com"><b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=895187916,3765627625&fm=26&gp=0.jpg" size="6rem"></b-avatar></a>
                 </template>
-                <a href="/articledetail"><h5 class="mt-0">Spring Cloud微服务架构学习之Ribbon负载均衡</h5></a>
+                <router-link to="/article">
+                  <h5 class="mt-0">Spring Cloud微服务架构学习之Ribbon负载均衡</h5>
+                </router-link>
                 <p style="max-height:50px;overflow: hidden">
                   Spring Cloud Ribbon 是一个基于Http和TCP的客服端负载均衡工具，它是基于Netflix Ribbon实现的。
                   它不像服务注册中心、配置中心、API网关那样独立部署.....
@@ -56,7 +58,7 @@
                 <template v-slot:aside>
                   <a href="http://www.baidu.com"><b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar></a>
                 </template>
-                <a href="/articledetail"><h5 class="mt-0">Spring Cloud微服务架构学习之Ribbon负载均衡</h5></a>
+                <a href="/article"><h5 class="mt-0">Spring Cloud微服务架构学习之Ribbon负载均衡</h5></a>
                 <p style="max-height:50px;overflow: hidden">
                   Spring Cloud Ribbon 是一个基于Http和TCP的客服端负载均衡工具，它是基于Netflix Ribbon实现的。
                   它不像服务注册中心、配置中心、API网关那样独立部署.....

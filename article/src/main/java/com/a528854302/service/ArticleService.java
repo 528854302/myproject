@@ -49,9 +49,7 @@ public class ArticleService implements BaseService<Article>{
     }
 
 
-    public Article selectOneByMap(Map map){
-        return (Article) articleMapper.selectByMap(map).get(0);
-    }
+
 
     public List<Article> selectListByMap(Map map){
         return  articleMapper.selectByMap(map);

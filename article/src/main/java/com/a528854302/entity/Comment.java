@@ -16,7 +16,7 @@ import java.util.Date;
 @Document(collection = "comment")
 public class Comment implements Serializable {
     @Id
-    private String _id;
+    private String id;
     @Indexed
     private String articleid;
     private String content;
@@ -26,5 +26,6 @@ public class Comment implements Serializable {
     private String parentid;
     @Indexed
     private Date createtime;
+
     private Integer thumbup;
 }

@@ -16,46 +16,39 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    //根据id查询评论
     @GetMapping(value = "/select/{id}")
     public ResponseResult findById(@PathVariable String id) {
         Comment comment = commentService.selectById(id);
         return new ResponseResult(true, StatusCode.OK, "查询成功", comment);
     }
 
-    //查询所有
     @GetMapping("/select")
-    public ResponseResult findAll() {
+    public ResponseResult select() {
         List<Comment> list = commentService.selectAll();
         return new ResponseResult(true, StatusCode.OK, "查询成功", list);
     }
 
-    //新增
     @PostMapping("/insert")
-    public ResponseResult save(@RequestBody Comment comment) {
+    public ResponseResult insert(@RequestBody Comment comment) {
         commentService.insert(comment);
         return new ResponseResult(true, StatusCode.OK, "新增成功");
     }
 
-    //修改
     @PostMapping("/update")
-    public ResponseResult update(@PathVariable String id,
-                         @RequestBody Comment comment) {
-        comment.set_id(id);
+    public ResponseResult update(@RequestBody Comment comment) {
         commentService.update(comment);
         return new ResponseResult(true, StatusCode.OK, "修改成功");
     }
 
-    //删除
     @GetMapping("/delete/{id}")
     public ResponseResult deleteById(@PathVariable String id) {
-        commentService.deleteById(id);
-        return new ResponseResult(true, StatusCode.OK, "删除成功");
+        return commentService.deleteById(id)?
+                new ResponseResult(true, StatusCode.OK, "删除成功"):
+                new ResponseResult(false,StatusCode.ERROR,"删除失败");
     }
 
-    //根据文章id查询评论列表
     @GetMapping("/selectByArticleId/{articleId}")
-    public ResponseResult findByarticleId(@PathVariable String articleId) {
+    public ResponseResult selectByarticleId(@PathVariable String articleId) {
         List<Comment> list = commentService.selectByArticleId(articleId);
         return new ResponseResult(true, StatusCode.OK, "查询成功", list);
     }

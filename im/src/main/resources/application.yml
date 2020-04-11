@@ -16,6 +16,9 @@ spring:
     mongodb:
       database: myproject
       uri: mongodb://root:123456@localhost:27017
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 mybatis-plus:
   #  mapper-locations: classpath:/mapper/*Mapper.xml

@@ -11,7 +11,7 @@ import java.util.Date;
 public class Article {
     @Id
     @TableId(type = IdType.ID_WORKER)
-    private Long id;//ID
+    private String id;//ID
     private String columnid;    //专栏ID
     private String userid;      //用户ID
     private String title;       //标题
