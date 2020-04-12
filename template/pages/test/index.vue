@@ -26,7 +26,8 @@
 
             <b-media v-for="(m,index) in msgs" :key="index" tag="li" class="my-4" :right-align="uid == m.from.id">
               <template v-slot:aside>
-                <img src="~/assets/img/avatar2.jpg" width="50px" height="50px">
+                <img v-if="uid == m.from.id" src="~/assets/img/avatar1.jpg" width="50px" height="50px">
+                <img v-else src="~/assets/img/avatar3.jpg" width="50px" height="50px">
               </template>
 
               <div v-if="uid == m.from.id">
@@ -103,8 +104,8 @@
         this.getmsgs();
       },
       getmsgs(){
-        axios.get(`message/2/1/1/10`).then(res=>{
-          this.msgs=res.data.data;
+        axios.get(`message/2/1/1/15`).then(res=>{
+          this.msgs=res.data.data.reverse();
         });
       }
     },

@@ -18,8 +18,7 @@ public class TestTbUserService {
     TbUserService tbUserService;
     @org.junit.Test
     public void test(){
-        List<TbUser> tbUsers = tbUserService.selectAll();
-        System.out.println(tbUsers);
+
 
     }
 }

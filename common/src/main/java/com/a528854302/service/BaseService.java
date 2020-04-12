@@ -1,17 +1,19 @@
 package com.a528854302.service;
 
+import com.a528854302.entity.ResponseResult;
+
 import java.util.List;
 
 public interface BaseService<T> {
 
-    List<T> selectAll();
+    ResponseResult<List<T>> selectAll();
 
-    T selectById(String id);
+    ResponseResult<T> selectById(String id);
 
-    boolean update(T t);
+    ResponseResult update(T t);
 
-    boolean deleteById(String id);
+    ResponseResult deleteById(String id);
 
-    boolean insert(T t );
+    ResponseResult insert(T t );
 
 }

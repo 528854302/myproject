@@ -16,7 +16,10 @@
             <b-card>
               <b-media>
                 <template v-slot:aside>
-                  <b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar>
+                  <router-link :to="`/author/${a.userid}`">
+                    <b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar>
+                  </router-link>
+
                 </template>
                 <router-link :to="`/article/${a.id}`"><h5 class="mt-0" :key="a.title">{{a.title}}</h5></router-link>
                 <p :key="a.content" style="max-height:50px;overflow: hidden">
@@ -56,7 +59,7 @@
             <b-card>
               <b-media>
                 <template v-slot:aside>
-                  <a href="http://www.baidu.com"><b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar></a>
+                  <router-link to="/author"><b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar></router-link>
                 </template>
                 <a href="/article"><h5 class="mt-0">Spring Cloud微服务架构学习之Ribbon负载均衡</h5></a>
                 <p style="max-height:50px;overflow: hidden">

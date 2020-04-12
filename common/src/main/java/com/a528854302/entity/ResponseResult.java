@@ -2,36 +2,35 @@ package com.a528854302.entity;
 
 import java.io.Serializable;
 
-public class ResponseResult implements Serializable {
-    private boolean flag;//是否成功
+public class ResponseResult<T> implements Serializable {
     private Integer code;// 返回码
     private String message;//返回信息
-    private Object data;// 返回数据
+    private T data;// 返回数据
 
-    public ResponseResult(boolean flag, Integer code, String message, Object data) {
+    public ResponseResult( Integer code, String message, T data) {
         super();
-        this.flag = flag;
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public ResponseResult() { }
-
-    public ResponseResult(boolean flag, Integer code, String message) {
-        super();
-        this.flag = flag;
-        this.code = code;
-        this.message = message;
+    public ResponseResult() {
+        this.code=StatusCode.OK;
+        this.message="success";
     }
 
-    public boolean isFlag() {
-        return flag;
+    public ResponseResult(T data) {
+        this.code=StatusCode.OK;
+        this.message="success";
+        this.data=data;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public ResponseResult(String errorMessage) {
+        this.code=StatusCode.ERROR;
+        this.message=errorMessage;
     }
+
+
 
     public Integer getCode() {
         return code;
@@ -53,7 +52,7 @@ public class ResponseResult implements Serializable {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

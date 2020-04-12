@@ -29,11 +29,11 @@ public class MessageService implements BaseService<Message>{
                 Criteria.where("to.id").is(fromId).and("from.id").is(toId);
         Criteria criteria = new Criteria().orOperator(fromCriterria, toCriterria);
         PageRequest pageRequest =
-                PageRequest.of(page-1,rows, Sort.by(Sort.Direction.ASC,"send_date"));
+                PageRequest.of(page-1,rows, Sort.by(Sort.Direction.DESC,"send_date"));
         Query query = new Query(criteria).with(pageRequest);
         return template.find(query,Message.class);
-
     }
+
 
     @Override
     public List<Message> selectAll() {
@@ -62,7 +62,6 @@ public class MessageService implements BaseService<Message>{
 
     @Override
     public boolean insert(Message message) {
-        //message.setId(ObjectId.get());
         message.setSendDate(new Date());
         message.setStatus(0);
         return repository.save(message)!=null?true:false;
@@ -71,7 +70,7 @@ public class MessageService implements BaseService<Message>{
     public List<Message> readMessageList(Long fromId, Long toId, Integer page, Integer rows) {
         List<Message> list = this.findListByFromAndTo(fromId, toId, page, rows);
         for (Message message : list) {
-            if (message.getStatus()==1){
+            if (message.getStatus()==0 && message.getFrom().getId()==toId){
                 message.setStatus(1);
                 this.update(message);
             }

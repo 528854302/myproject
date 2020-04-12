@@ -26,7 +26,8 @@
 
             <b-media v-for="(m,index) in msgs" :key="index" tag="li" class="my-4" :right-align="uid == m.from.id">
               <template v-slot:aside>
-                <img src="~/assets/img/avatar2.jpg" width="50px" height="50px">
+                <img v-if="uid == m.from.id" src="~/assets/img/avatar1.jpg" width="50px" height="50px">
+                <img v-else src="~/assets/img/avatar3.jpg" width="50px" height="50px">
               </template>
 
               <div v-if="uid == m.from.id">
@@ -54,11 +55,12 @@
 
           <b-form-textarea
             v-model="sendParams.msg"
+
             id="textarea-rows"
             placeholder="请输入。。。"
             rows="3"
           ></b-form-textarea>
-          <b-button style="float: right" size="lg" variant="primary"  @click="send()">发送</b-button>
+          <b-button style="float: right" size="lg" variant="primary"  @click="send">发送</b-button>
         </div>
 
       </el-main>
@@ -104,8 +106,8 @@
 
       },
       getmsgs(){
-        axios.get(`message/1/2/1/10`).then(res=>{
-            this.msgs=res.data.data;
+        axios.get(`message/1/2/1/15`).then(res=>{
+            this.msgs=res.data.data.reverse();
         });
       }
     },
@@ -127,7 +129,7 @@
 <style scoped>
   #chat-frame{
     margin: 0 auto;
-    width: 90%;
+    width: 70%;
     border: 1px solid gainsboro;
     border-radius: 5px;
     padding: 5%;

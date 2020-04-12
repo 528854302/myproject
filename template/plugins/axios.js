@@ -1,7 +1,23 @@
 import axios from 'axios'
 
-// 设置baseURL
-axios.defaults.baseURL = 'http://localhost/api/'
 
-// 创建axios对象，暴露
-export default axios.create()
+const myRequest = axios.create({
+  baseURL: 'http://localhost/api/'
+})
+
+myRequest.interceptors.request.use(
+  config => {
+    let token = sessionStorage.getItem('user_info1');
+    alert(token);
+  if (token){
+    alert(token);
+    config.headers['token'] = sessionStorage.getItem('user_info1');
+  }
+  return config;
+  },
+  err=>{
+    return Promise.reject(err);
+  })
+
+
+export default myRequest

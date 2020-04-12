@@ -10,8 +10,10 @@
         <b-navbar-nav>
           <b-nav-item to="/">首页</b-nav-item>
           <b-nav-item v-b-toggle.sidebar-1 >通讯录</b-nav-item>
+          <b-nav-item to="/dicover">发现</b-nav-item>
+          <b-nav-item to="/follow">关注</b-nav-item>
+          <b-nav-item to="/collect">收藏</b-nav-item>
           <b-nav-item to="/job">招聘</b-nav-item>
-          <b-nav-item to="/job">发现</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -29,7 +31,7 @@
               <b-avatar variant="info" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg"></b-avatar>
               <em>Lebron James</em>
             </template>
-            <b-dropdown-item v-b-toggle.sidebar-1>Profile</b-dropdown-item>
+            <b-dropdown-item to="/myinfo">我的主页</b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -77,6 +79,7 @@
   </div>
 </template>
 <script>
+
   export default {
     data() {
       return {

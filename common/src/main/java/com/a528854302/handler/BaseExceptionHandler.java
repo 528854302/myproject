@@ -12,6 +12,6 @@ public class BaseExceptionHandler {
     @ResponseBody
     public ResponseResult error(Exception e) {
         e.printStackTrace();
-        return new ResponseResult(false, StatusCode.ERROR, e.getMessage());
+        return new ResponseResult(e.getMessage());
     }
 }

@@ -1,6 +1,7 @@
 package com.a528854302.service;
 
 import com.a528854302.entity.Comment;
+import com.a528854302.entity.ResponseResult;
 import com.a528854302.repository.CommentRepository;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,35 +22,39 @@ public class CommentService implements BaseService<Comment> {
 
 
     @Override
-    public List<Comment> selectAll() {
-        return repository.findAll();
+    public ResponseResult<List<Comment>> selectAll() {
+        return new ResponseResult<>(repository.findAll());
     }
 
     @Override
-    public Comment selectById(String id) {
-        return repository.findById(id).get();
+    public ResponseResult<Comment> selectById(String id) {
+        return new ResponseResult<>(repository.findById(id).get());
     }
 
     @Override
-    public boolean update(Comment comment) {
-        return repository.save(comment)!=null?true:false;
+    public ResponseResult update(Comment comment) {
+        return repository.save(comment)!=null?
+                new ResponseResult():
+                new ResponseResult("failed");
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public ResponseResult deleteById(String id) {
         repository.deleteById(id);
-        return true;
+        return new ResponseResult();
     }
 
     @Override
-    public boolean insert(Comment comment) {
+    public ResponseResult insert(Comment comment) {
         comment.setId(IdWorker.getIdStr());
         comment.setCreatetime(new Date());
-        return repository.save(comment)!=null?true:false;
+        return repository.save(comment)!=null?
+                new ResponseResult():
+                new ResponseResult("failed");
     }
 
-    public List<Comment> selectByArticleId(String articleId) {
-        return repository.findByArticleid(articleId);
+    public ResponseResult<List<Comment>> selectByArticleId(String articleId) {
+        return new ResponseResult<>(repository.findByArticleid(articleId));
     }
 
     public void thumbup(String id) {

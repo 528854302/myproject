@@ -1,6 +1,8 @@
 package com.a528854302.service;
 
 import com.a528854302.entity.Article;
+import com.a528854302.entity.ResponseResult;
+import com.a528854302.entity.StatusCode;
 import com.a528854302.mapper.ArticleMapper;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -27,25 +29,30 @@ public class ArticleService implements BaseService<Article>{
     @Autowired
     private ArticleMapper articleMapper;
 
-    public List<Article> selectAll() {
-        return articleMapper.selectList(null);
+    public ResponseResult<List<Article>> selectAll() {
+        return new ResponseResult<>(articleMapper.selectList(null));
     }
 
-    public Article selectById(String id) {
-        return articleMapper.selectById(id);
+    public ResponseResult<Article> selectById(String id) {
+        return new ResponseResult<>(articleMapper.selectById(id));
     }
 
-    public boolean update(Article article) {
-        return articleMapper.updateById(article)==1?true:false;
+    public ResponseResult update(Article article) {
+        return articleMapper.updateById(article)>0?
+                new ResponseResult():
+                new ResponseResult("failed");
     }
 
-    public boolean deleteById(String id) {
-        return articleMapper.deleteById(id)==1?true:false;
+    public ResponseResult deleteById(String id) {
+        return articleMapper.deleteById(id)>0?
+                new ResponseResult():
+                new ResponseResult("failed");
     }
 
-    public boolean insert(Article article){
+    public ResponseResult insert(Article article){
         //article.setId(String.valueOf(IdWorker.getId()));
-        return articleMapper.insert(article)==1?true:false;
+        return articleMapper.insert(article)>0?new ResponseResult():
+        new ResponseResult("failed");
     }
 
 
