@@ -17,13 +17,13 @@
           <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
             <el-form-item label="头像">
               <el-radio-group v-model="ruleForm.avatar">
-                <el-radio label="img/avatar1.jpg"><img src="img/avatar1.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
-                <el-radio label="img/avatar2.jpg"><img src="img/avatar2.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
-                <el-radio label="img/avatar3.jpg"><img src="img/avatar3.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
-                <el-radio label="img/avatar4.jpg"><img src="img/avatar4.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
-                <el-radio label="img/avatar5.jpg"><img src="img/avatar5.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
-                <el-radio label="img/avatar6.jpg"><img src="img/avatar6.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
-                <el-radio label="img/avatar7.jpg"><img src="img/avatar7.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar1.jpg"><img src="/img/avatar1.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar2.jpg"><img src="/img/avatar2.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar3.jpg"><img src="/img/avatar3.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar4.jpg"><img src="/img/avatar4.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar5.jpg"><img src="/img/avatar5.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar6.jpg"><img src="/img/avatar6.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
+                <el-radio label="/img/avatar7.jpg"><img src="/img/avatar7.jpg" style="width: 60px;height: 60px;border-radius: 10px"></el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="账号" prop="username">
@@ -96,6 +96,7 @@
 
       return {
         ruleForm: {
+
           username: '',
           nickname: '',
           password: '',

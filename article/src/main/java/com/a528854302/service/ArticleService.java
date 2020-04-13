@@ -4,6 +4,7 @@ import com.a528854302.entity.Article;
 import com.a528854302.entity.ResponseResult;
 import com.a528854302.entity.StatusCode;
 import com.a528854302.mapper.ArticleMapper;
+import com.a528854302.vo.ArticleVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -29,14 +30,14 @@ public class ArticleService implements BaseService<Article>{
     @Autowired
     private ArticleMapper articleMapper;
 
-    public ResponseResult<List<Article>> selectAll() {
-        return new ResponseResult<>(articleMapper.selectList(null));
+    public ResponseResult selectAll() {
+        return new ResponseResult<>(articleMapper.selectVoList());
     }
 
 
 
-    public ResponseResult<Article> selectById(String id) {
-        return new ResponseResult<>(articleMapper.selectById(id));
+    public ResponseResult selectById(String id) {
+        return new ResponseResult<ArticleVo>(articleMapper.selectVoById(id));
     }
 
     public ResponseResult update(Article article) {

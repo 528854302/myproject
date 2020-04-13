@@ -61,7 +61,6 @@
         name: "index",
       data() {
         return {
-
           title: null,
           options: [
             { value: 'a', text: 'Java' },
@@ -83,6 +82,10 @@
       methods:{
         submit(){
           this.formData.type=this.selected[0];
+          var userInfo = cookie.get("userInfo");
+          if (userInfo){
+            this.userid = JSON.parse(userInfo);
+          }
           axios.post(`/save`,this.formData).then(res=>{
             if (res.data.code==20000){
               alert("success");

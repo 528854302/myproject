@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-container id="main-content">
-      <el-container>
+
         <el-aside width="200px" >
           <b-card
             id="author-info-card"
-            title="Lebron James"
-            img-src="img/avatar1.jpg"
+            :title="article.nickname"
+            :img-src="article.avatar"
             img-alt="Image"
             img-top
             tag="article"
@@ -18,7 +18,7 @@
             <div class="mt-3">
               <b-button-group>
                 <b-button variant="success">关注</b-button>
-                <b-button variant="warning">私信</b-button>
+                <b-button variant="info" @click="addFriend(article.userid)">加好友</b-button>
               </b-button-group>
             </div>
           </b-card>
@@ -84,8 +84,29 @@
           </div>
 
         </el-main>
-      </el-container>
+
+
+
+
+
+
+      <el-dialog title="添加好友" :visible.sync="dialogFormVisible">
+        <h3>{{article.nickname}}</h3>
+        <el-form>
+          <el-form-item label="验证信息">
+            <el-input v-model="addFriendParams.content" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submitAddFriend">确 定</el-button>
+        </div>
+      </el-dialog>
+
     </el-container>
+
+
+
 
 
   </div>
@@ -98,9 +119,43 @@
     name: "index",
     data() {
       return {
+        addFriendParams:{
+          userid:'',
+          friendid:'',
+          content:'你好啊，可以认识下吗'
+        },
+        dialogFormVisible:false
       }
     },
     methods:{
+      submitAddFriend(){
+        var userInfostr = cookie.get("userInfo");
+        if (userInfostr){
+          var userInfo = JSON.parse(userInfostr);
+          this.addFriendParams.friendid = this.article.userid;
+          this.addFriendParams.userid = userInfo.id;
+        }
+        axios.post(`/friend/insert`,this.addFriendParams).then(res=>{
+          if (res.data.code==20000){
+            this.$notify({
+              title: '提示',
+              message: '发送朋友验证成功，等待通过',
+              duration: 0
+            });
+          }else {
+            this.$notify({
+              title: '提示',
+              message: res.data.message,
+              duration: 0
+            });
+          }
+        });
+        this.dialogFormVisible=false;
+      },
+      addFriend(userid){
+        this.dialogFormVisible=true;
+
+      }
 
     },
     mounted(){

@@ -2,7 +2,7 @@ module.exports = {
   plugins: [
     {
      src: '~plugins/ElementUI',
-      ssr: false  // ssr: true表示这个插件只在服务端起作用
+      ssr: true // ssr: true表示这个插件只在服务端起作用
     },
     {
       src: '~plugins/bootstrapvue'

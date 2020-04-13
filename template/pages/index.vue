@@ -17,13 +17,13 @@
               <b-media>
                 <template v-slot:aside>
                   <router-link :to="`/author/${a.userid}`">
-                    <b-avatar src="~assets/img/avatar1.jpg" size="6rem"></b-avatar>
+                    <b-avatar :src="a.avatar" size="6rem"></b-avatar>
                   </router-link>
 
                 </template>
                 <router-link :to="`/article/${a.id}`"><h5 class="mt-0" :key="a.title">{{a.title}}</h5></router-link>
                 <p :key="a.content" style="max-height:50px;overflow: hidden">
-                  {{a.content}}
+                     {{a.nickname}} {{a.content}}
                 </p>
                 <b-button size="sm" variant="link" class="mb-2">
                   <b-icon icon="star" aria-hidden="true"></b-icon>

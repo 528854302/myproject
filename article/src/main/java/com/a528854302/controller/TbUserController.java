@@ -58,7 +58,6 @@ public class TbUserController {
 
     @PostMapping("/insert")
     public ResponseResult insert(@RequestBody TbUser user) {
-        tbUserService.insert(user);
         return tbUserService.insert(user);
     }
 
