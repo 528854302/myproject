@@ -10,6 +10,7 @@
 </template>
 
 <script>
+  import cookie from 'js-cookie'
   import AppLogo from '~/components/AppLogo.vue'
   import axios from '~/plugins/axios'
   export default {

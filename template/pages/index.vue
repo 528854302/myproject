@@ -17,7 +17,7 @@
               <b-media>
                 <template v-slot:aside>
                   <router-link :to="`/author/${a.userid}`">
-                    <b-avatar src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg" size="6rem"></b-avatar>
+                    <b-avatar src="~assets/img/avatar1.jpg" size="6rem"></b-avatar>
                   </router-link>
 
                 </template>

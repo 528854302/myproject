@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
 /**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author a528854302
- * @since 2020-04-08
- */
+ * @ClassName ArticleController
+ * @Description: TODO
+ * @Author 528854302@qq.com
+ * @Date 2020/4/08
+ **/
 @RestController
 @CrossOrigin
 @RequestMapping("/api/article")

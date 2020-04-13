@@ -72,6 +72,7 @@
 </template>
 
 <script>
+  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   export default {
     name: "index",

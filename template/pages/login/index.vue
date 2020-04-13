@@ -39,7 +39,9 @@
 <script>
   import AppLogo from '~/components/AppLogo.vue'
   import axios from '~/plugins/axios'
+  import cookie from 'js-cookie'
   export default {
+    layout: 'loginAndSignup',
     components: {
       AppLogo
     },
@@ -63,10 +65,12 @@
       };
 
       return {
+        userInfo:{},
         ruleForm: {
           username: '',
           password: '',
-          remenberMe:false
+          remenberMe:false,
+          //userInfo:{}
         },
         rules: {
           username: [
@@ -86,7 +90,6 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
 
             // axios.post(`/user/login`,this.ruleForm).then(res=>{
             //   if (res.data.code==20000){
@@ -94,12 +97,18 @@
             //     sessionStorage.setItem("userToken",userToken);
             //   }
             // });
-
-            axios.post(`/user/login`).then(res=>{
+            axios.post(`/user/login`,this.ruleForm).then(res=>{
               if (res.data.code==20000){
-                let userToken = res.data.data;
-                sessionStorage.setItem("user_info1",userToken);
-                this.$router.push('./');
+                var userToken = res.data.data;
+                cookie.set("userToken",userToken);
+                axios.defaults.headers.common["token"] = userToken;
+                axios.get(`/user/info`).then(res1=>{
+                    this.userInfo=res1.data.data;
+                    cookie.set("userInfo",JSON.stringify(res1.data.data));
+                    this.$router.push('./');
+                })
+              }else {
+                alert(res.data.message);
               }
             });
 

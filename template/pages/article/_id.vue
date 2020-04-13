@@ -6,7 +6,7 @@
           <b-card
             id="author-info-card"
             title="Lebron James"
-            img-src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg"
+            img-src="img/avatar1.jpg"
             img-alt="Image"
             img-top
             tag="article"
@@ -24,8 +24,9 @@
           </b-card>
         </el-aside>
         <el-main>
+
           <div>
-            <b-card :title="article.title"
+            <b-card  :title="article.title"
                     style="min-height: 20%"
                     :sub-title="`最后发布于:`+ article.updatetime">
               <b-card-text>
@@ -47,6 +48,7 @@
               </b-button>
             </b-card>
           </div>
+
         </el-main>
       </el-container>
     </el-container>
@@ -56,6 +58,7 @@
 </template>
 
 <script>
+  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   export default {
     name: "index",

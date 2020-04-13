@@ -13,7 +13,12 @@ import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * @ClassName ArticleController
+ * @Description: TODO
+ * @Author 528854302@qq.com
+ * @Date 2020/4/09
+ **/
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
@@ -25,6 +30,9 @@ public class TbUserController {
     @PostMapping("/login")
     public ResponseResult login(@RequestBody TbUser user){
         TbUser tbUser = tbUserService.selectOneByUsername(user.getUsername());
+        if (tbUser==null){
+            return new ResponseResult(StatusCode.ERROR,"登陆失败，用户名或密码错误",null);
+        }
         if (tbUser.getPassword().equals(user.getPassword())){
             String token = JwtUtils.generateToken(tbUser.getId(), tbUser.getUsername());
             return new ResponseResult(StatusCode.OK,"login success",token);

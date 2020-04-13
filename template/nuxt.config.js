@@ -14,6 +14,7 @@ module.exports = {
     'bootstrap/dist/css/bootstrap.css'
   ],
 
+
   /*
   ** Headers of the page
   */

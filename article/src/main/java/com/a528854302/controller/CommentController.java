@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @ClassName ArticleController
+ * @Description: TODO
+ * @Author 528854302@qq.com
+ * @Date 2020/4/08
+ **/
 @RestController
 @CrossOrigin
 @RequestMapping("/api/comment")

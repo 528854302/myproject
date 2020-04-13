@@ -1,23 +1,23 @@
 import axios from 'axios'
+import cookie from 'js-cookie'
 
 
 const myRequest = axios.create({
   baseURL: 'http://localhost/api/'
 })
 
-myRequest.interceptors.request.use(
-  config => {
-    let token = sessionStorage.getItem('user_info1');
-    alert(token);
-  if (token){
-    alert(token);
-    config.headers['token'] = sessionStorage.getItem('user_info1');
-  }
+myRequest.interceptors.request.use(config => {
+    var token = cookie.get('userToken');
+    console.log(token);
+    if (token){
+      config.headers['token'] = token;
+    }
+
   return config;
   },
   err=>{
     return Promise.reject(err);
-  })
+  });
 
 
 export default myRequest

@@ -3,15 +3,8 @@
     <el-container id="main-content">
       <el-container>
         <el-aside width="230px" >
-          <b-card
-            id="author-info-card"
-            title="Lebron James"
-            img-src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg"
-            img-alt="Image"
-            img-top
-            tag="article"
-            style="max-width: 20rem;"
-            class="mb-2">
+          <b-card style="width: 230px;padding: 10px">
+            <img src="~assets/img/avatar1.jpg" width="170px" height="170px" style="text-align: center" alt="">
             <b-card-text>
               原创 390  粉丝 1580  获赞 583  评论 579  访问 120
             </b-card-text>
@@ -67,7 +60,7 @@
                   <b-media>
                     <template v-slot:aside>
                       <router-link to="/author">
-                        <b-img src="/_nuxt/assets/img/avatar3.jpg" width="50" alt="placeholder"></b-img>
+                        <b-img src="~assets/img/avatar3.jpg" width="50" alt="placeholder"></b-img>
                       </router-link>
                     </template>
                     <h5 class="mt-0">Nested Media <em style="float: right;color: #7f828b">2020-02-19 19:52:42</em></h5>
@@ -83,7 +76,7 @@
                   <b-media>
                     <template v-slot:aside>
                       <router-link to="/author">
-                        <b-img src="/_nuxt/assets/img/avatar5.jpg" width="50" alt="placeholder"></b-img>
+                        <b-img src="~assets/img/avatar5.jpg" width="50" alt="placeholder"></b-img>
                       </router-link>
                     </template>
                     <h5 class="mt-0">Kobe Brant <em style="float: right;color: #7f828b">2020-02-19 19:52:42</em></h5>
@@ -109,6 +102,7 @@
 </template>
 
 <script>
+  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   export default {
     name: "index",

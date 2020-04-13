@@ -24,16 +24,24 @@
           </b-nav-form>
 
 
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
+          <b-nav-item-dropdown right v-if="userInfo.id">
             <template v-slot:button-content>
-
-              <b-avatar variant="info" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2742459949,603881894&fm=26&gp=0.jpg"></b-avatar>
-              <em>Lebron James</em>
+              <b-avatar variant="info" :src="userInfo.avatar"></b-avatar>
+              <em>{{userInfo.nickname}}</em>
             </template>
             <b-dropdown-item to="/myinfo">我的主页</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item @click="logout">退出</b-dropdown-item>
           </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown right v-else>
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content>
+              <em>请登录</em>
+            </template>
+            <b-dropdown-item to="/login">登录</b-dropdown-item>
+            <b-dropdown-item to="/signup">注册</b-dropdown-item>
+          </b-nav-item-dropdown>
+
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -73,24 +81,41 @@
 
     <nuxt/>
 
-
     <h5 style="margin-top: 100px;margin-bottom: 20px;text-align: center;">MIT Licensed | Copyright © 2020 Author:528854302@qq.com</h5>
 
   </div>
 </template>
 <script>
-
+  import cookie from 'js-cookie'
+  import axios from '~/plugins/axios'
   export default {
     data() {
       return {
         activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex2: '1',
+        userInfo:{
+          id:'',
+          username:'',
+          avatar: '',
+          nickname :''
+        }
       };
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+      logout(){
+        cookie.remove("userToken");
+        cookie.remove("userInfo");
+        this.userInfo='';
+      },
+      showUserInfo(){
+        var userInfo = cookie.get("userInfo");
+        if (userInfo){
+          this.userInfo=JSON.parse(userInfo);
+        }
       }
+    },
+    created(){
+      this.showUserInfo();
     }
   }
 </script>
