@@ -51,7 +51,7 @@ public class TbUserService implements BaseService<TbUser> {
 
     @Override
     public ResponseResult insert(TbUser tbUser) {
-        if (this.selectOneByUsername(tbUser.getUsername())==null){
+        if (this.selectOneByUsername(tbUser.getUsername())!=null){
             return new ResponseResult(StatusCode.ERROR,"用户名已存在",null);
         }
         return mapper.insert(tbUser)>0? new ResponseResult():

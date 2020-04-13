@@ -21,6 +21,7 @@ public class TestArticleService {
     public void test(){
         Article article = new Article();
         article.setColumnid("safsdfsd");
+        article.setTitle("aaaa");
         articleService.insert(article);
 
     }

@@ -100,7 +100,7 @@
           nickname: '',
           password: '',
           checkPass: '',
-          avatar: '~/assets/img/avatar1.jpg',
+          avatar: '/img/avatar1.jpg',
           remenberMe:false
         },
         rules: {
@@ -127,7 +127,14 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            axios.post(`/user/insert`,this.ruleForm).then(res=>{
+              if (res.data.code==20000){
+                this.$message('注册成功，请登录');
+                this.$router.push('/login');
+              }else {
+                this.$message(res.data.message);
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;

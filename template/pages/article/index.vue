@@ -45,6 +45,7 @@
                 <b-icon icon="star" aria-hidden="true"></b-icon>收藏
               </b-button>
             </b-card>
+
             <b-card style="margin-top: 5px;">
               <b-form-textarea
                 id="textarea-small"
@@ -54,7 +55,6 @@
               <b-button size="sm" style="float: right" variant="info">
                 发表评论
               </b-button>
-
               <div id="comment-content">
                 <b-card>
                   <b-media>
@@ -90,7 +90,6 @@
                   </b-media>
                 </b-card>
               </div>
-
             </b-card>
           </div>
         </el-main>

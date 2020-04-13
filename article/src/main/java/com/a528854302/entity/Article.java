@@ -1,6 +1,7 @@
 package com.a528854302.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
@@ -9,8 +10,7 @@ import java.util.Date;
 @Data
 @TableName("tb_article")
 public class Article {
-    @Id
-    @TableId(type = IdType.ID_WORKER)
+    @TableId(type = IdType.ID_WORKER_STR)
     private String id;//ID
     private String columnid;    //专栏ID
     private String userid;      //用户ID
@@ -18,8 +18,10 @@ public class Article {
     private String content;     //文章正文
     private String image;       //文章封面
     @TableField(fill = FieldFill.INSERT)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createtime;    //发表日期
     @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updatetime;    //修改日期
     private String ispublic;    //是否公开
     private String istop;       //是否置顶
