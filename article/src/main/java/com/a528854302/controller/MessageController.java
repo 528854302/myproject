@@ -1,4 +1,4 @@
-package com.a528854302.contoller;
+package com.a528854302.controller;
 
 import com.a528854302.entity.Message;
 import com.a528854302.entity.ResponseResult;
@@ -22,7 +22,7 @@ public class MessageController {
             ,@PathVariable("page") Integer page
             ,@PathVariable("rows") Integer rows){
         List<Message> list = messageService.readMessageList(fromId, toId, page, rows);
-        return new ResponseResult(true, StatusCode.OK,"success",list);
+        return new ResponseResult(list);
     }
 
 

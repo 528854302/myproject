@@ -113,7 +113,7 @@
       }
     },
     mounted(){
-      var ws = new WebSocket("ws://localhost:8888/ws/1");
+      var ws = new WebSocket("ws://localhost:8081/ws/1");
       ws.onopen = function (evt) {
         //alert("连接成功");
       }

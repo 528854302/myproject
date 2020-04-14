@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -24,6 +26,7 @@ public class TestTbUserService {
         tbUser.setAvatar("img1");
         ResponseResult insert = tbUserService.insert(tbUser);
         System.out.println(insert);
+        Date now = new Date();
 
     }
 }

@@ -3,10 +3,10 @@ package com.a528854302.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override

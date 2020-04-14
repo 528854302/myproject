@@ -14,6 +14,6 @@ public interface BaseService<T> {
 
     ResponseResult deleteById(String id);
 
-    ResponseResult insert(T t );
+    ResponseResult insert(T t);
 
 }

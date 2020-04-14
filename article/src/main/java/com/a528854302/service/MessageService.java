@@ -1,9 +1,8 @@
 package com.a528854302.service;
 
-import com.a528854302.dao.MessageRepository;
+
 import com.a528854302.entity.Message;
-import com.a528854302.entity.ResponseResult;
-import org.bson.types.ObjectId;
+import com.a528854302.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -11,12 +10,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MessageService implements BaseService<Message>{
+public class MessageService{
     @Autowired
     MessageRepository repository;
     @Autowired
@@ -35,12 +35,12 @@ public class MessageService implements BaseService<Message>{
     }
 
 
-    @Override
+
     public List<Message> selectAll() {
         return repository.saveAll(null);
     }
 
-    @Override
+
     public Message selectById(String id) {
         Optional<Message> optional = repository.findById(id);
         if (optional.isPresent()){
@@ -49,18 +49,18 @@ public class MessageService implements BaseService<Message>{
         return null;
     }
 
-    @Override
+
     public boolean update(Message message) {
         return repository.save(message)!=null?true:false;
     }
 
-    @Override
+
     public boolean deleteById(String id) {
         repository.deleteById(id);
         return true;
     }
 
-    @Override
+
     public boolean insert(Message message) {
         message.setSendDate(new Date());
         message.setStatus(0);

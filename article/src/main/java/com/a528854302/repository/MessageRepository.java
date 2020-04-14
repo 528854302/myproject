@@ -1,4 +1,4 @@
-package com.a528854302.dao;
+package com.a528854302.repository;
 
 import com.a528854302.entity.Message;
 import org.springframework.data.mongodb.repository.MongoRepository;

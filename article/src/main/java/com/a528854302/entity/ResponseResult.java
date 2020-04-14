@@ -3,6 +3,7 @@ package com.a528854302.entity;
 import lombok.Builder;
 
 import java.io.Serializable;
+
 @Builder
 public class ResponseResult<T> implements Serializable {
     private Integer code;// 返回码

@@ -2,6 +2,7 @@ package com.a528854302.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
 public class PageResult<T> implements Serializable {
     private Long total;
     private List<T> rows;
