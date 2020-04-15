@@ -22,7 +22,7 @@ public class MessageService{
     @Autowired
     MongoTemplate template;
 
-    public List<Message> findListByFromAndTo(Long fromId, Long toId, Integer page, Integer rows){
+    public List<Message> findListByFromAndTo(String fromId, String toId, Integer page, Integer rows){
         Criteria fromCriterria =
                 Criteria.where("from.id").is(fromId).and("to.id").is(toId);
         Criteria toCriterria =
@@ -67,7 +67,7 @@ public class MessageService{
         return repository.save(message)!=null?true:false;
     }
 
-    public List<Message> readMessageList(Long fromId, Long toId, Integer page, Integer rows) {
+    public List<Message> readMessageList(String fromId, String toId, Integer page, Integer rows) {
         List<Message> list = this.findListByFromAndTo(fromId, toId, page, rows);
         for (Message message : list) {
             if (message.getStatus()==0 && message.getFrom().getId()==toId){

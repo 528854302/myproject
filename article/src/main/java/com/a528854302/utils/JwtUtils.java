@@ -20,12 +20,11 @@ public class JwtUtils {
     //密钥
     private final static String SECRET = "528854302@qq.com";
 
-    public static String generateToken(String id,String username){
+    public static String generateToken(String id){
 
         String token = Jwts.builder()
                 .setSubject(SECRET)    //设置签名
                 .claim("id", id)        //设置传入的参数
-                .claim("name", username)
                 .setIssuedAt(new Date())    //发行时间
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE)) //过期时间
                 .signWith(SignatureAlgorithm.HS256, SECRET)  //签名算法

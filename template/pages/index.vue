@@ -23,7 +23,7 @@
                 </template>
                 <router-link :to="`/article/${a.id}`"><h5 class="mt-0" :key="a.title">{{a.title}}</h5></router-link>
                 <p :key="a.content" style="max-height:50px;overflow: hidden">
-                     {{a.nickname}} {{a.content}}
+                     {{a.nickname}}: {{a.content}}
                 </p>
                 <b-button size="sm" variant="link" class="mb-2">
                   <b-icon icon="star" aria-hidden="true"></b-icon>

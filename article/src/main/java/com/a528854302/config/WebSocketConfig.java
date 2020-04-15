@@ -1,6 +1,6 @@
 package com.a528854302.config;
 
-import com.a528854302.handler.MessageHandshakeInterceptor;
+import com.a528854302.interceptor.MessageHandshakeInterceptor;
 import com.a528854302.handler.MyMessagHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

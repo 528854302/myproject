@@ -9,7 +9,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/">首页</b-nav-item>
-          <b-nav-item v-b-toggle.sidebar-1 >通讯录</b-nav-item>
+          <b-nav-item v-b-toggle.sidebar-1 @click="getFriendList" >通讯录</b-nav-item>
           <b-nav-item to="/dicover">发现</b-nav-item>
           <b-nav-item to="/follow">关注</b-nav-item>
           <b-nav-item to="/collect">收藏</b-nav-item>
@@ -50,29 +50,11 @@
     <b-sidebar id="sidebar-1" title="通讯录" shadow>
     <div class="px-3 py-2">
       <b-list-group style="max-width: 300px;">
-        <b-list-group-item class="d-flex align-items-center">
-          <b-avatar class="mr-3"></b-avatar>
-          <span class="mr-auto">J. Circlehead</span>
-          <b-badge>5</b-badge>
-          <b-button variant="light" size="sm" href="/chat">发消息</b-button>
-        </b-list-group-item>
-        <b-list-group-item class="d-flex align-items-center">
-          <b-avatar variant="primary" text="BV" class="mr-3"></b-avatar>
-          <span class="mr-auto">BootstrapVue</span>
-          <b-badge>12</b-badge>
-          <b-button variant="light" size="sm">发消息</b-button>
-        </b-list-group-item>
-        <b-list-group-item class="d-flex align-items-center">
-          <b-avatar variant="info" src="https://placekitten.com/300/300" class="mr-3"></b-avatar>
-          <span class="mr-auto">Super Kitty</span>
-          <b-badge>9</b-badge>
-          <b-button variant="light" size="sm">发消息</b-button>
-        </b-list-group-item>
-        <b-list-group-item class="d-flex align-items-center">
-          <b-avatar variant="success" icon="people-fill" class="mr-3"></b-avatar>
-          <span class="mr-auto">ACME group</span>
-          <b-badge>7</b-badge>
-          <b-button variant="light" size="sm">发消息</b-button>
+        <b-list-group-item v-for="(f,index) in friends" :key="index" class="d-flex align-items-center">
+          <b-avatar class="mr-3" :src="f.avatar"></b-avatar>
+          <span class="mr-auto">{{f.nickname}}</span>
+          <b-badge>{{f.unreadmsg}}</b-badge>
+          <b-button variant="light" size="sm" :href="'/chat/'+f.friendid">发消息</b-button>
         </b-list-group-item>
       </b-list-group>
     </div>
@@ -98,7 +80,9 @@
           username:'',
           avatar: '',
           nickname :''
-        }
+        },
+        friends:[]
+
       };
     },
     methods: {
@@ -106,12 +90,22 @@
         cookie.remove("userToken");
         cookie.remove("userInfo");
         this.userInfo='';
+        this.$router.push("/");
       },
       showUserInfo(){
         var userInfo = cookie.get("userInfo");
         if (userInfo){
           this.userInfo=JSON.parse(userInfo);
         }
+      },
+      getFriendList(){
+        axios.get(`/friend/selectByUserId/${this.userInfo.id}`).then(res=>{
+          if (res.data.code==20000){
+            this.friends=res.data.data;
+          } else {
+            alert(res.data.message);
+          }
+        })
       }
     },
     created(){

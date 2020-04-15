@@ -23,4 +23,5 @@ public class TbUser {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updatetime;
+
 }

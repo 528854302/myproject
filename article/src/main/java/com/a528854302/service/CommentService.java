@@ -2,6 +2,8 @@ package com.a528854302.service;
 
 import com.a528854302.entity.Comment;
 import com.a528854302.entity.ResponseResult;
+import com.a528854302.entity.TbUser;
+import com.a528854302.mapper.TbUserMapper;
 import com.a528854302.repository.CommentRepository;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,19 @@ public class CommentService implements BaseService<Comment> {
     private CommentRepository repository;
     @Autowired
     MongoTemplate mongoTemplate;
-
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    TbUserMapper tbUserMapper;
 
     @Override
     public ResponseResult<List<Comment>> selectAll() {
-        return new ResponseResult<>(repository.findAll());
+        List<Comment> all = repository.findAll();
+        for (Comment comment : all) {
+            TbUser tbUser = tbUserMapper.selectById(comment.getUserid());
+            comment.setNickname(tbUser.getNickname());
+            comment.setAvatar(tbUser.getAvatar());
+        }
+        return new ResponseResult<>(all);
     }
 
     @Override

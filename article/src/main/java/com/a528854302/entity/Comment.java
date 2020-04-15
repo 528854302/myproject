@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +24,8 @@ public class Comment implements Serializable {
     private String content;
     @Indexed
     private String userid;
+    private String nickname;
+    private String avatar;
     @Indexed
     private String parentid;
     @Indexed
@@ -30,4 +33,5 @@ public class Comment implements Serializable {
     private Date createtime;
 
     private Integer thumbup;
+
 }

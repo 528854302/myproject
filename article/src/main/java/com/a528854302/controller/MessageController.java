@@ -17,8 +17,8 @@ public class MessageController {
     MessageService messageService;
 
     @GetMapping("/{fromId}/{toId}/{page}/{rows}")
-    public ResponseResult getMessageList(@PathVariable("fromId") Long fromId
-            , @PathVariable("toId") Long toId
+    public ResponseResult getMessageList(@PathVariable("fromId") String fromId
+            , @PathVariable("toId") String toId
             ,@PathVariable("page") Integer page
             ,@PathVariable("rows") Integer rows){
         List<Message> list = messageService.readMessageList(fromId, toId, page, rows);

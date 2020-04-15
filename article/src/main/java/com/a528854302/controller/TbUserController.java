@@ -34,7 +34,7 @@ public class TbUserController {
             return new ResponseResult(StatusCode.ERROR,"登陆失败，用户名或密码错误",null);
         }
         if (tbUser.getPassword().equals(user.getPassword())){
-            String token = JwtUtils.generateToken(tbUser.getId(), tbUser.getUsername());
+            String token = JwtUtils.generateToken(tbUser.getId());
             return new ResponseResult(StatusCode.OK,"login success",token);
         }else {
             return new ResponseResult(StatusCode.ERROR,"登陆失败，用户名或密码错误",null);

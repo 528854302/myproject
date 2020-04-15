@@ -1,11 +1,13 @@
 package com.a528854302.controller;
 
-import com.a528854302.entity.Article;
 import com.a528854302.entity.Friend;
+import com.a528854302.vo.FriendVo;
 import com.a528854302.entity.ResponseResult;
 import com.a528854302.service.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName FriedContoller
@@ -24,6 +26,11 @@ public class FrinedContoller {
     @PostMapping("/insert")
     public ResponseResult insert(@RequestBody Friend friend) {
         return friendService.insert(friend);
+    }
+
+    @GetMapping("/selectByUserId/{userid}")
+    public ResponseResult<List<FriendVo>> selectByUserId(@PathVariable("userid") String userid) {
+        return friendService.selectFriendVoByUserId(userid);
     }
 
 

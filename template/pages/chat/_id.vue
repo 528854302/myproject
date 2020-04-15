@@ -3,7 +3,7 @@
 
     <el-container>
       <el-header>
-        <label for="textarea-large"><h3>正在和对话</h3></label>
+        <label for="textarea-large"><h3>正在和{{friend.nickname}}对话</h3></label>
       </el-header>
       <el-main>
 
@@ -24,13 +24,13 @@
             <!--</p>-->
             <!--</b-media>-->
 
-            <b-media v-for="(m,index) in msgs" :key="index" tag="li" class="my-4" :right-align="uid == m.from.id">
+            <b-media v-for="(m,index) in msgs" :key="index" tag="li" class="my-4" :right-align="userInfo.id == m.from.id">
               <template v-slot:aside>
-                <img v-if="uid == m.from.id" src="~/assets/img/avatar1.jpg" width="50px" height="50px">
-                <img v-else src="~/assets/img/avatar3.jpg" width="50px" height="50px">
+                <img v-if="userInfo.id == m.from.id" :src="userInfo.avatar" width="50px" height="50px">
+                <img v-else :src="friend.avatar" width="50px" height="50px">
               </template>
 
-              <div v-if="uid == m.from.id">
+              <div v-if="userInfo.id == m.from.id">
                 <p style="float: right;color: white;padding: 1%;border-radius: 10px;background-color: rgba(0,137,222,0.68)" class="mb-0">
                   {{m.content}}
                 </p>
@@ -55,11 +55,12 @@
 
           <b-form-textarea
             v-model="sendParams.msg"
+
             id="textarea-rows"
             placeholder="请输入。。。"
             rows="3"
           ></b-form-textarea>
-          <b-button style="float: right" size="lg" variant="primary"  @click="send()">发送</b-button>
+          <b-button style="float: right" size="lg" variant="primary"  @click="send">发送</b-button>
         </div>
 
       </el-main>
@@ -71,19 +72,20 @@
 </template>
 
 <script>
+  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   export default {
-    name: "index",
+    name: "id",
     data() {
       return {
-        uid: 2,
+        userInfo:{},
         idRight:true,
         msgs:[
 
         ],
         sendParams:{
           msg: '',
-          toId:1,
+          toId: '',
         },
         websock:null,
         sendBtnDisabled:false
@@ -91,6 +93,7 @@
     },
     methods:{
       send(){
+        this.sendParams.toId=this.friend.id;
         if (this.sendParams.msg==null){
           alert("内容不能为空");
         } else {
@@ -102,15 +105,24 @@
       websocketonmessage(e){ //数据接收
         var redata = JSON.parse(e.data);
         this.getmsgs();
+
       },
       getmsgs(){
-        axios.get(`message/2/1/1/15`).then(res=>{
+        axios.get(`/message/${this.userInfo.id}/${this.friend.id}/1/15`).then(res=>{
           this.msgs=res.data.data.reverse();
         });
+      },
+      getUserInfo(){
+        var userInfo = cookie.get("userInfo");
+        if (userInfo){
+          this.userInfo=JSON.parse(userInfo);
+          console.log(this.userInfo);
+        }
       }
     },
     mounted(){
-      var ws = new WebSocket("ws://localhost:8081/ws/2");
+      this.getUserInfo();
+      var ws = new WebSocket(`ws://localhost:8081/ws/${this.userInfo.id}`);
       ws.onopen = function (evt) {
         //alert("连接成功");
       }
@@ -121,13 +133,20 @@
     destroyed(){
       this.websock.close();
     },
+    asyncData ({ params, env, error }) {
+      return axios.get(`/user/select/${params.id}`).then(res=>{
+        return {
+          friend:res.data.data
+        }
+      });
+    },
   }
 </script>
 
 <style scoped>
   #chat-frame{
     margin: 0 auto;
-    width: 90%;
+    width: 70%;
     border: 1px solid gainsboro;
     border-radius: 5px;
     padding: 5%;

@@ -1,8 +1,11 @@
 package com.a528854302.handler;
 
 import com.a528854302.entity.Message;
+import com.a528854302.entity.TbUser;
 import com.a528854302.entity.USER_DATA;
+import com.a528854302.mapper.TbUserMapper;
 import com.a528854302.service.MessageService;
+import com.a528854302.service.TbUserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,10 @@ public class MyMessagHandler  extends TextWebSocketHandler {
     @Autowired
     MessageService messageService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
+    TbUserMapper tbUserMapper;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -35,14 +42,16 @@ public class MyMessagHandler  extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
-        Long uid = Long.parseLong((String) session.getAttributes().get("uid"));
+        String uid = (String) session.getAttributes().get("uid");
         String payload = textMessage.getPayload();
         JsonNode jsonNode = objectMapper.readTree(payload);
-        Long toId = jsonNode.get("toId").asLong();
+        String toId = jsonNode.get("toId").asText();
         String msg = jsonNode.get("msg").asText();
         Message message = new Message();
-        message.setFrom(USER_DATA.getById(uid));
-        message.setTo(USER_DATA.getById(toId));
+
+
+        message.setFrom(tbUserMapper.selectById(uid));
+        message.setTo(tbUserMapper.selectById(toId));
         message.setContent(msg);
         messageService.insert(message);
         WebSocketSession toSession = sessionMap.get(toId);

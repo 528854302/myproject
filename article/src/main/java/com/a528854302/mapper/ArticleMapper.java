@@ -4,8 +4,8 @@ import com.a528854302.entity.Article;
 import com.a528854302.vo.ArticleVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

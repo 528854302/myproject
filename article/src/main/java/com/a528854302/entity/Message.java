@@ -1,5 +1,6 @@
 package com.a528854302.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -18,15 +19,17 @@ public class Message {
     /*** 消息状态，0-未读，1-已读 */
     @Indexed
     private Integer status;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Field("send_date")
     @Indexed
     private Date sendDate;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Field("read_date")
     private Date readDate;
     @Indexed
-    private User from;
+    private TbUser from;
     @Indexed
-    private User to;
+    private TbUser to;
 
     private String content;
 }
