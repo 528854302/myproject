@@ -116,7 +116,6 @@
         var userInfo = cookie.get("userInfo");
         if (userInfo){
           this.userInfo=JSON.parse(userInfo);
-          console.log(this.userInfo);
         }
       }
     },

@@ -29,6 +29,7 @@
                   <b-icon icon="star" aria-hidden="true"></b-icon>
                 </b-button>
                 <em> 发布于{{a.createtime}}</em>
+
                 <a style="float: right" href="`/articledetail`"><b-icon icon="chevron-down"></b-icon>阅读原文</a>
               </b-media>
             </b-card>
@@ -70,6 +71,7 @@
                   <b-icon icon="star" aria-hidden="true"></b-icon>
                 </b-button>
                 <em> 发布于2020-04-07 14:13:10</em>
+
                 <a style="float: right" href="">... 阅读原文</a>
               </b-media>
             </b-card>
@@ -174,7 +176,8 @@
       handleClick(tab, event) {
         console.log(tab, event);
       }
-    }
+    },
+
   }
 </script>
 

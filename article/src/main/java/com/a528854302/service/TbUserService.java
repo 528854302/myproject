@@ -19,37 +19,34 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class TbUserService implements BaseService<TbUser> {
+public class TbUserService {
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     TbUserMapper mapper;
 
-    @Override
+
     public ResponseResult<List<TbUser>> selectAll() {
         return new ResponseResult<>( StatusCode.OK
                 ,"success",mapper.selectList(null));
     }
 
-    @Override
     public ResponseResult<TbUser> selectById(String id) {
         return new ResponseResult<>(StatusCode.OK,
                 "success",mapper.selectById(id));
     }
 
-    @Override
     public ResponseResult update(TbUser tbUser) {
         return mapper.updateById(tbUser)>0?
                 new ResponseResult():
                 new ResponseResult(StatusCode.ERROR,"failed",null);
     }
 
-    @Override
     public ResponseResult deleteById(String id) {
         return mapper.deleteById(id)>01?
                 new ResponseResult():
                 new ResponseResult(StatusCode.ERROR,"failed",null);
     }
 
-    @Override
     public ResponseResult insert(TbUser tbUser) {
         if (this.selectOneByUsername(tbUser.getUsername())!=null){
             return new ResponseResult(StatusCode.ERROR,"用户名已存在",null);
@@ -72,5 +69,11 @@ public class TbUserService implements BaseService<TbUser> {
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(tbUser,userInfo);
         return new ResponseResult(userInfo);
+    }
+
+    public ResponseResult selectMyInfoById(String id) {
+        TbUser tbUser = mapper.selectById(id);
+        tbUser.setPassword(null);
+        return new ResponseResult(tbUser);
     }
 }

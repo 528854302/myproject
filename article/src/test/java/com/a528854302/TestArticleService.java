@@ -1,6 +1,7 @@
 package com.a528854302;
 
 import com.a528854302.entity.Article;
+import com.a528854302.entity.ResponseResult;
 import com.a528854302.mapper.ArticleMapper;
 import com.a528854302.service.ArticleService;
 import org.junit.runner.RunWith;
@@ -23,6 +24,10 @@ public class TestArticleService {
         article.setColumnid("safsdfsd");
         article.setTitle("aaaa");
         articleService.insert(article);
-
+    }
+    @org.junit.Test
+    public void test1(){
+        ResponseResult responseResult = articleService.selectAll();
+        System.out.println(responseResult);
     }
 }

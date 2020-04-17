@@ -63,20 +63,20 @@
         return {
           title: null,
           options: [
-            { value: 'a', text: 'Java' },
-            { value: 'b', text: 'C++' },
-            { value: 'c', text: 'Python' },
-            { value: 'e', text: 'C#' },
-            { value: 'f', text: '人工智能' },
-            { value: 'g', text: '大数据' }
+            { value: '1', text: '后端开发' },
+            { value: '2', text: '前端开发' },
+            { value: '3', text: '大数据'  },
+            { value: '4', text: '区块链' },
+            { value: '5', text: '人工智能' },
           ],
           selected: [],
           formData:{
             userid:null,
             content: null,
             title: null,
-            type: null,
-          }
+            channelid: null,
+          },
+          userInfo:{}
         }
       },
       methods:{
@@ -84,18 +84,26 @@
           this.formData.type=this.selected[0];
           var userInfo = cookie.get("userInfo");
           if (userInfo){
-            this.userid = JSON.parse(userInfo);
+            var obj = JSON.parse(userInfo);
+            this.formData.userid=obj.id;
           }
-          axios.post(`/save`,this.formData).then(res=>{
+          axios.post(`/article/insert`,this.formData).then(res=>{
             if (res.data.code==20000){
-              alert("success");
+              this.$alert('发布文章成功', '提示', {
+                confirmButtonText: '确定',
+              });
+              this.$router.push('./');
             } else {
-              alert("failed");
+              this.$message.error(res.data.code);
             }
-          });
+          })
         },
         cancle(){
             this.formData=null;
+        },
+
+        created(){
+
         }
       }
     }

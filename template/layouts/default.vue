@@ -70,6 +70,7 @@
 <script>
   import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
+  import UserUtils from '~/utils/user'
   export default {
     data() {
       return {
@@ -77,7 +78,7 @@
         activeIndex2: '1',
         userInfo:{
           id:'',
-          username:'',
+          token:'',
           avatar: '',
           nickname :''
         },
@@ -87,16 +88,15 @@
     },
     methods: {
       logout(){
-        cookie.remove("userToken");
-        cookie.remove("userInfo");
-        this.userInfo='';
+        UserUtils.removeUser();
         this.$router.push("/");
       },
       showUserInfo(){
-        var userInfo = cookie.get("userInfo");
-        if (userInfo){
-          this.userInfo=JSON.parse(userInfo);
-        }
+        // var userInfo = cookie.get("userInfo");
+        // if (userInfo){
+        //   this.userInfo=JSON.parse(userInfo);
+        // }
+        this.userInfo = UserUtils.getUserInfo()
       },
       getFriendList(){
         axios.get(`/friend/selectByUserId/${this.userInfo.id}`).then(res=>{

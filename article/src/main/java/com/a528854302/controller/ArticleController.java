@@ -35,6 +35,11 @@ public class ArticleController {
         return articleService.selectById(id);
     }
 
+    @GetMapping(value = "/selectByUid/{uid}")
+    public ResponseResult selectByUid(@PathVariable String uid) {
+        return articleService.selectByUid(uid);
+    }
+
     @PostMapping("/insert")
     public ResponseResult insert(@RequestBody Article article) {
         return articleService.insert(article);

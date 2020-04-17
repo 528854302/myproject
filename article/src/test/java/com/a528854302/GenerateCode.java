@@ -10,6 +10,14 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Test;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class GenerateCode {
 
     @Test
@@ -121,5 +129,15 @@ public class GenerateCode {
 
         mpg.execute();
 
+    }
+
+    @Test
+    public void test() throws AWTException, IOException {
+        Robot robot = new Robot();
+        Rectangle rectangle = new Rectangle(0,0,1000,1000);
+        BufferedImage screenCapture = robot.createScreenCapture(rectangle);
+        File file = new File("d://1.jpg");
+        FileOutputStream outputStream = new FileOutputStream(file);
+        ImageIO.write(screenCapture,"jpg",outputStream);
     }
 }

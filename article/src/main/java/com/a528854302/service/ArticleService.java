@@ -81,4 +81,10 @@ public class ArticleService implements BaseService<Article>{
         IPage iPage = articleMapper.selectPage(new Page<>(page, size), wrapper);
         return iPage;
     }
+
+    public ResponseResult selectByUid(String uid) {
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userid",uid);
+        return new ResponseResult(articleMapper.selectList(queryWrapper));
+    }
 }

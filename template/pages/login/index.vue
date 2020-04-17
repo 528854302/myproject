@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <app-logo/>
-
+      <h1>{{$store.state.counter}}</h1>
       <div class="links">
         <b-card
           title="登录"
@@ -39,7 +39,7 @@
 <script>
   import AppLogo from '~/components/AppLogo.vue'
   import axios from '~/plugins/axios'
-  import cookie from 'js-cookie'
+  import UserUtils from '~/utils/user'
   export default {
     layout: 'loginAndSignup',
     components: {
@@ -91,37 +91,29 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
 
-            // axios.post(`/user/login`,this.ruleForm).then(res=>{
-            //   if (res.data.code==20000){
-            //     let userToken = res.data.data;
-            //     sessionStorage.setItem("userToken",userToken);
-            //   }
-            // });
+
             axios.post(`/user/login`,this.ruleForm).then(res=>{
               if (res.data.code==20000){
                 var userToken = res.data.data;
-                cookie.set("userToken",userToken);
+                //cookie.set("userToken",userToken);
+
+                UserUtils.setToken(userToken);
+
                 axios.defaults.headers.common["token"] = userToken;
                 axios.get(`/user/info`).then(res1=>{
                     this.userInfo=res1.data.data;
-                    cookie.set("userInfo",JSON.stringify(res1.data.data));
+                    //cookie.set("userInfo",JSON.stringify(res1.data.data));
+
+                    UserUtils.setUserInfo(this.userInfo.id,this.userInfo.nickname,this.userInfo.avatar)
+
                     this.$router.push('./');
                 })
               }else {
-                alert(res.data.message);
+                this.$message.error(res.data.message);
               }
             });
-
-            // if (this.ruleForm.password=='123456'&&this.resetForm.username=='123456'){
-            //   sessionStorage.setItem("user_info1","aaaaaa");
-            //   this.$router.push('./');
-            // } else {
-            //   alert("failed");
-            // }
-
-
           } else {
-            console.log('error submit!!');
+            this.$message.error('error submit!!');
             return false;
           }
         });
@@ -129,8 +121,6 @@
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
-
-
     }
   }
 </script>

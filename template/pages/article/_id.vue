@@ -32,6 +32,7 @@
               <b-card-text>
                {{article.content}}
               </b-card-text>
+              <div class="social-share" data-sites="weibo,qq,qzone,wechat" data-url="/myproject" :data-title="article.title" style="float: right"></div>
               <b-button style="float: right"  size="lg" variant="link" class="mb-2">
                 <b-icon icon="star" aria-hidden="true"></b-icon>收藏
               </b-button>
@@ -83,6 +84,8 @@
             </b-card>
           </div>
 
+
+
         </el-main>
 
 
@@ -124,7 +127,8 @@
           friendid:'',
           content:'你好啊，可以认识下吗'
         },
-        dialogFormVisible:false
+        dialogFormVisible:false,
+        url: ''
       }
     },
     methods:{
@@ -155,10 +159,12 @@
       addFriend(userid){
         this.dialogFormVisible=true;
 
-      }
+      },
+
 
     },
     mounted(){
+
     },
     asyncData ({ params, env, error }) {
       return axios.get(`article/select/${params.id}`).then(res=>{
@@ -167,6 +173,15 @@
         }
       });
     },
+    head: {
+      script: [
+        { src: 'https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js' },
+        { src: 'https://cdn.bootcss.com/qrcode-generator/1.3.1/qrcode.js' }
+      ],
+      link: [
+        { rel: 'stylesheet', href: 'https://cdn.bootcss.com/social-share.js/1.0.16/css/share.min.css' }
+      ]
+    }
   }
 </script>
 

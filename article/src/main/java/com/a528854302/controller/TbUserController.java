@@ -47,8 +47,8 @@ public class TbUserController {
     }
 
     @GetMapping(value = "/select/{id}")
-    public ResponseResult selectById(@PathVariable String id) {
-        return tbUserService.selectById(id);
+    public ResponseResult myInfo(@PathVariable String id) {
+        return tbUserService.selectMyInfoById(id);
     }
 
     @GetMapping("/select")
