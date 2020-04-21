@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  **/
 @Data
 @TableName("tb_friend")
-public class Friend {
+public class Friend implements Serializable {
     @TableId(type = IdType.ID_WORKER_STR)
     private String id;
     private String userid;

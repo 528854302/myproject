@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @TableName("tb_user")
-public class TbUser {
+public class TbUser implements Serializable {
     @Id
     @TableId(type = IdType.ID_WORKER_STR)
     private String id;

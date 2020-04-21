@@ -63,10 +63,20 @@ public class ArticleController {
         return articleService.selectVolistByPage(new Page<>(page,size),channelid);
     }
 
-    @GetMapping("/selectByPage")
-    public ResponseResult selectByPage(){
-       //articleService.selectByPage();
-       return null;
+
+
+
+    @GetMapping("/collect/{userid}/{articleid}")
+    public ResponseResult collect(@PathVariable String userid,
+                                  @PathVariable String articleid){
+       return articleService.collect(userid,articleid);
     }
+
+
+    @GetMapping("/getCollected/{userid}")
+    public ResponseResult getCollected(@PathVariable String userid){
+        return articleService.selectCollectedByUserid(userid);
+    }
+
 }
 

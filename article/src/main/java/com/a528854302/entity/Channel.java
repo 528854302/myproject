@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
+
 @Data
 @TableName("tb_channel")
-public class Channel {
+public class Channel implements Serializable {
 
     @Id
     private Long id;

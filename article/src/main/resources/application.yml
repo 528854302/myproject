@@ -19,6 +19,18 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  redis:
+    host: 120.25.255.82
+    port: 6379
+    #password: 123456
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
 
 mybatis-plus:
   #  mapper-locations: classpath:/mapper/*Mapper.xml
@@ -34,3 +46,5 @@ mybatis-plus:
     lazyLoadingEnabled: true #延时加载的开关
     ultipleResultSetsEnabled: true #开启延时加载，否则按需加载属性
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+
+

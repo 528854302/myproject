@@ -8,12 +8,13 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @Document(collection = "message")
 @NoArgsConstructor
-public class Message {
+public class Message implements Serializable {
     @Id
     private String id;
     /*** 消息状态，0-未读，1-已读 */

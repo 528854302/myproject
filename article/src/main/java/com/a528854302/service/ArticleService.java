@@ -2,17 +2,12 @@ package com.a528854302.service;
 
 import com.a528854302.entity.Article;
 import com.a528854302.entity.ResponseResult;
-import com.a528854302.entity.StatusCode;
 import com.a528854302.mapper.ArticleMapper;
 import com.a528854302.vo.ArticleVo;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +29,12 @@ public class ArticleService implements BaseService<Article>{
         return new ResponseResult<>(articleMapper.selectVoList());
     }
 
+    /**
+     * 首页文章的分页和联表条件查询文章Vo
+     * @param page
+     * @param channelid
+     * @return
+     */
     public ResponseResult selectVolistByPage(Page<ArticleVo> page,String channelid) {
         if (channelid==null){
             channelid="1";
@@ -42,23 +43,42 @@ public class ArticleService implements BaseService<Article>{
     }
 
 
-
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     public ResponseResult selectById(String id) {
         return new ResponseResult<ArticleVo>(articleMapper.selectVoById(id));
     }
 
+    /**
+     * 更新
+     * @param article
+     * @return
+     */
     public ResponseResult update(Article article) {
         return articleMapper.updateById(article)>0?
                 new ResponseResult():
                 new ResponseResult("failed");
     }
 
+    /**
+     * 根据id删除
+     * @param id
+     * @return
+     */
     public ResponseResult deleteById(String id) {
         return articleMapper.deleteById(id)>0?
                 new ResponseResult():
                 new ResponseResult("failed");
     }
 
+    /**
+     * 插入
+     * @param article
+     * @return
+     */
     public ResponseResult insert(Article article){
         //article.setId(String.valueOf(IdWorker.getId()));
         return articleMapper.insert(article)>0?new ResponseResult():
@@ -66,8 +86,11 @@ public class ArticleService implements BaseService<Article>{
     }
 
 
-
-
+    /**
+     * 根据map条件查询
+     * @param map
+     * @return
+     */
     public List<Article> selectListByMap(Map map){
         return  articleMapper.selectByMap(map);
     }
@@ -90,9 +113,40 @@ public class ArticleService implements BaseService<Article>{
         return iPage;
     }*/
 
+    /**
+     * 根据作者id查询
+     * @param uid
+     * @return
+     */
     public ResponseResult selectByUid(String uid) {
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userid",uid);
         return new ResponseResult(articleMapper.selectList(queryWrapper));
     }
+
+    /**
+     * 文章收藏
+     * @param userid
+     * @param articleid
+     * @return
+     */
+    public ResponseResult collect(String userid, String articleid) {
+        try {
+            articleMapper.collect(userid, articleid);
+        }catch (Exception e){
+            return new ResponseResult("你已收藏过该文章");
+        }
+        return new ResponseResult();
+    }
+
+    /**
+     * 根据用户id查询用户收藏的文章
+     * @param userid
+     * @return
+     */
+    public ResponseResult selectCollectedByUserid(String userid) {
+        return new ResponseResult(articleMapper.selcetCollectedByUserid(userid));
+    }
+
+
 }

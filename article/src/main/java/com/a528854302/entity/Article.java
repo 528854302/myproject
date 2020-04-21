@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @TableName("tb_article")
-public class Article {
+public class Article implements Serializable {
     @TableId(type = IdType.ID_WORKER_STR)
     private String id;//ID
     private String columnid;    //专栏ID

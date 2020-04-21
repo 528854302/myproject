@@ -35,7 +35,7 @@
                {{article.content}}
               </b-card-text>
               <div class="social-share" data-sites="weibo,qq,qzone,wechat" data-url="/myproject" :data-title="article.title" style="float: right"></div>
-              <b-button style="float: right"  size="lg" variant="link" class="mb-2">
+              <b-button style="float: right"  size="lg" @click="collectAriticle" variant="link" class="mb-2">
                 <b-icon icon="star" aria-hidden="true"></b-icon>收藏
               </b-button>
             </b-card>
@@ -52,7 +52,7 @@
                     <h5 class="mt-0">{{c.nickname}}<em style="float: right;color: #7f828b">{{c.createtime}}</em></h5>
                     <p class="mb-0">
                      {{c.content}}
-                      <el-button type="text">回复</el-button>
+                      <el-button type="text" @click="commentReply(c.id,c.nickname)">回复</el-button>
                       <el-button type="text">查看回复(1)</el-button>
                     </p>
                   </b-media>
@@ -152,14 +152,14 @@
 
       },
       getComments(){
-        axios.get(`comment/selectByArticleId/${this.article.id}`).then(res=>{
+        axios.get(`/comment/selectByArticleId/${this.article.id}`).then(res=>{
           this.comments=res.data.data;
         })
       },
       addComment(){
         this.commentParams.userid = UserUtils.getUserInfo().id;
         this.commentParams.articleid = this.article.id;
-        axios.post(`comment/insert/`,this.commentParams).then(res=>{
+        axios.post(`/comment/insert/`,this.commentParams).then(res=>{
           if (res.data.code==20000){
             this.comments=res.data.data;
             this.getComments();
@@ -167,6 +167,19 @@
             this.$message('评论成功');
           }else {
             this.$message.error(res.data.message);
+          }
+        })
+      },
+      commentReply(id,nickname){
+        this.commentParams.content="@"+nickname+"： ";
+      },
+      collectAriticle(){
+        var userid= UserUtils.getUserInfo().id;
+        axios.get(`/article/collect/${userid}/${this.article.id}`).then(res=>{
+          if (res.data.code==20000){
+            this.$message("收藏成功");
+          } else {
+            this.$message(res.data.message);
           }
         })
       }
