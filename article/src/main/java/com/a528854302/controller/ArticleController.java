@@ -2,7 +2,6 @@ package com.a528854302.controller;
 
 
 import com.a528854302.entity.Article;
-import com.a528854302.entity.PageResult;
 import com.a528854302.entity.ResponseResult;
 import com.a528854302.entity.StatusCode;
 import com.a528854302.service.ArticleService;
@@ -25,6 +24,11 @@ import java.util.Map;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
+
+    @GetMapping("/test")
+    public String test(){
+        return "ssssss";
+    }
 
    @GetMapping("/select")
     public ResponseResult select() {

@@ -1,5 +1,6 @@
 package com.a528854302.interceptor;
 
+import com.a528854302.utils.RedisUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,11 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        if (o==null){
+            return o;
+        }
         try {
-            String redisKey = RedisCacheInterceptor.generateRedisKey(((ServletServerHttpRequest) serverHttpRequest).getServletRequest());
+            String redisKey = RedisUtils.generateRedisKey(((ServletServerHttpRequest) serverHttpRequest).getServletRequest());
             String redisData;
             if(o instanceof String){
                 redisData = (String)o;
