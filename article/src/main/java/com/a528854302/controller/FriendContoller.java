@@ -33,6 +33,4 @@ public class FriendContoller {
         return friendService.selectFriendVoByUserId(userid);
     }
 
-
-
 }

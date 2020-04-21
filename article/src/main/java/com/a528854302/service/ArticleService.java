@@ -149,4 +149,19 @@ public class ArticleService implements BaseService<Article>{
     }
 
 
+    public ResponseResult selectByFriends(String uid) {
+        return new ResponseResult(articleMapper. selectByFriends(uid));
+    }
+
+    /**
+     * 随机查询num条
+     * @param num
+     * @return
+     */
+    public ResponseResult selectRamdom(int num){
+        if (num<=0){
+            num=10;
+        }
+        return new ResponseResult(articleMapper.selectRandom(num));
+    }
 }

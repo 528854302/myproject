@@ -1,6 +1,7 @@
 package com.a528854302.mapper;
 
 import com.a528854302.entity.Article;
+import com.a528854302.entity.ResponseResult;
 import com.a528854302.vo.ArticleVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -41,4 +42,14 @@ public interface ArticleMapper extends BaseMapper<Article> {
             "INNER JOIN `tb_article_collect` ac ON a.`id`=ac.`articleid` \n" +
             "WHERE ac.`userid`=#{userid}")
     List<ArticleVo> selcetCollectedByUserid(String userid);
+
+    @Select("SELECT a.* FROM `tb_article` a \n" +
+            "INNER JOIN `tb_friend` f ON a.`userid`=f.`friendid` \n" +
+            "WHERE f.`userid`=#{uid}")
+    List<Article> selectByFriends(String uid);
+
+    @Select("SELECT a.*,u.`nickname`,u.`avatar` \n" +
+            "FROM `tb_article` a,`tb_user` u \n" +
+            "WHERE a.`userid`=u.`id` ORDER BY RAND() LIMIT #{num}")
+    List<ArticleVo> selectRandom(int num);
 }

@@ -82,5 +82,20 @@ public class ArticleController {
         return articleService.selectCollectedByUserid(userid);
     }
 
+    /**
+     * 根据用户id查询朋友发表的文章
+     * @param uid
+     * @return
+     */
+    @GetMapping("/selectByFriends/{uid}")
+    public ResponseResult selectByFriends(@PathVariable String uid){
+        return articleService.selectByFriends(uid);
+    }
+
+    @GetMapping("/discover/{num}")
+    public ResponseResult discover(@PathVariable int num){
+        return articleService.selectRamdom(num);
+    }
+
 }
 
