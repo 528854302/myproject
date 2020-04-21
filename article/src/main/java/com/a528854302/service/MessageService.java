@@ -70,7 +70,7 @@ public class MessageService{
     public List<Message> readMessageList(String fromId, String toId, Integer page, Integer rows) {
         List<Message> list = this.findListByFromAndTo(fromId, toId, page, rows);
         for (Message message : list) {
-            if (message.getStatus()==0 && message.getFrom().getId()==toId){
+            if (message.getStatus()==0 && message.getFrom().getId().equals(toId)){
                 message.setStatus(1);
                 this.update(message);
             }

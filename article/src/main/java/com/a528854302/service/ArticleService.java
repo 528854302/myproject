@@ -34,6 +34,13 @@ public class ArticleService implements BaseService<Article>{
         return new ResponseResult<>(articleMapper.selectVoList());
     }
 
+    public ResponseResult selectVolistByPage(Page<ArticleVo> page,String channelid) {
+        if (channelid==null){
+            channelid="1";
+        }
+        return new ResponseResult(articleMapper.selectVoListPage(page,channelid));
+    }
+
 
 
     public ResponseResult selectById(String id) {
@@ -65,7 +72,7 @@ public class ArticleService implements BaseService<Article>{
         return  articleMapper.selectByMap(map);
     }
 
-    public IPage selectByPage(Map map, int page, int size) {
+    /*public IPage selectByPage(Map map, int page, int size) {
         if (page<0 || size==0){
             page=1;
             size=10;
@@ -78,9 +85,10 @@ public class ArticleService implements BaseService<Article>{
             //动态sql，例如<if test="null != field"> and field='xxx' </if>
             wrapper.eq(null!=map.get(filed), (String) filed,map.get(filed));
         }
+
         IPage iPage = articleMapper.selectPage(new Page<>(page, size), wrapper);
         return iPage;
-    }
+    }*/
 
     public ResponseResult selectByUid(String uid) {
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();

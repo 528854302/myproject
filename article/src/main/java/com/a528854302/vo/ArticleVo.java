@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
  * @Date 2020/4/13
  **/
 @Data
+@NoArgsConstructor
 public class ArticleVo {
     private String id;//ID
     private String columnid;    //专栏ID

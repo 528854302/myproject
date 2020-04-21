@@ -30,9 +30,11 @@ public class TbUserService {
                 ,"success",mapper.selectList(null));
     }
 
-    public ResponseResult<TbUser> selectById(String id) {
-        return new ResponseResult<>(StatusCode.OK,
-                "success",mapper.selectById(id));
+    public ResponseResult selectById(String id) {
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(mapper.selectById(id),userInfo);
+        return new ResponseResult(StatusCode.OK,
+                "success",userInfo);
     }
 
     public ResponseResult update(TbUser tbUser) {

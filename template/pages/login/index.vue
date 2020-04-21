@@ -2,7 +2,6 @@
   <section class="container">
     <div>
       <app-logo/>
-      <h1>{{$store.state.counter}}</h1>
       <div class="links">
         <b-card
           title="登录"

@@ -2,7 +2,6 @@ package com.a528854302.handler;
 
 import com.a528854302.entity.Message;
 import com.a528854302.entity.TbUser;
-import com.a528854302.entity.USER_DATA;
 import com.a528854302.mapper.TbUserMapper;
 import com.a528854302.service.MessageService;
 import com.a528854302.service.TbUserService;
@@ -31,13 +30,12 @@ public class MyMessagHandler  extends TextWebSocketHandler {
     @Autowired
     ObjectMapper objectMapper;
 
-    private static Map<Long,WebSocketSession> sessionMap = new HashMap<>();
+    private static Map<String,WebSocketSession> sessionMap = new HashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Long uid = Long.parseLong((String) session.getAttributes().get("uid"));
+        String uid = (String) session.getAttributes().get("uid");
         sessionMap.put(uid,session);
-
     }
 
     @Override

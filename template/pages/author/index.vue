@@ -4,10 +4,10 @@
         <b-card>
           <b-media>
             <template v-slot:aside>
-              <img  src="/_nuxt/assets/img/avatar2.jpg" style="width:150px;height:150px;border-radius: 13px">
+              <img  :src="author.avatar" style="width:150px;height:150px;border-radius: 13px">
             </template>
 
-            <h3 class="mt-0">Lebron James</h3>
+            <h3 class="mt-0">{{author.nickname}}</h3>
             <p style="float: left">ta的简介：</p>
             <p>
               暂无内容。
@@ -35,17 +35,6 @@
                     </b-media>
                   </b-card>
 
-                  <b-card>
-                    <b-media>
-                      <template v-slot:aside>
-                        <b-avatar src="/_nuxt/assets/img/avatar2.jpg" size="4em"></b-avatar>
-                      </template>
-                      <router-link to="/article">
-                        <h5 class="mt-0">Spring Cloud微服务架构学习之Ribbon负载均衡</h5>
-                      </router-link>
-                      <em> 2020-04-07 14:13:10</em>
-                    </b-media>
-                  </b-card>
 
                 </el-tab-pane>
                 <el-tab-pane label="关注" name="second">内容2</el-tab-pane>
@@ -65,6 +54,7 @@
 <script>
   import AppLogo from '~/components/AppLogo.vue'
   import axios from '~/plugins/axios'
+  import UserUtils from '~/utils/user'
   export default {
     components: {
       AppLogo
@@ -73,7 +63,14 @@
     data() {
 
       return{
-        activeName: 'first'
+        activeName: 'first',
+        author:{
+          id:'',
+          token:'',
+          avatar: '',
+          nickname :'',
+          createtime:''
+        }
       }
 
     },
@@ -84,6 +81,13 @@
       }
 
 
+    },
+    asyncData ({ params, env, error }) {
+      return axios.get(`user/select/${params.id}`).then(res=>{
+        return {
+          author:res.data.data
+        }
+      });
     }
   }
 </script>

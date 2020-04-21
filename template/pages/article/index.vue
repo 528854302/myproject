@@ -4,7 +4,9 @@
       <el-container>
         <el-aside width="230px" >
           <b-card style="width: 230px;padding: 10px">
-            <img src="~assets/img/avatar1.jpg" width="170px" height="170px" style="text-align: center" alt="">
+            <router-link to="">
+              <img src="~assets/img/avatar1.jpg" width="170px" height="170px" style="text-align: center" alt="">
+            </router-link>
             <b-card-text>
               原创 390  粉丝 1580  获赞 583  评论 579  访问 120
             </b-card-text>

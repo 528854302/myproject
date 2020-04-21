@@ -38,7 +38,7 @@
                 <span v-else style="float: right">已读</span>
               </div>
               <div  v-else>
-                <h5 class="mt-0 mb-1">{{m.from.name}} : <span style="float: right">{{m.sendDate}}</span></h5>
+                <h5 class="mt-0 mb-1">{{friend.nickname}} : <span style="float: right">{{m.sendDate}}</span></h5>
                 <!--<p class="mb-0" style="color: black;padding: 1%;border-radius: 10px;background-color: gainsboro">-->
                 <!--{{m.content}}-->
                 <!--</p>-->
@@ -74,6 +74,7 @@
 <script>
   import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
+  import UserUtils from '~/utils/user'
   export default {
     name: "id",
     data() {
@@ -113,10 +114,8 @@
         });
       },
       getUserInfo(){
-        var userInfo = cookie.get("userInfo");
-        if (userInfo){
-          this.userInfo=JSON.parse(userInfo);
-        }
+        this.userInfo.id=UserUtils.getUserInfo().id;
+        this.userInfo.avatar=UserUtils.getUserInfo().avatar;
       }
     },
     mounted(){

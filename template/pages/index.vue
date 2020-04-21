@@ -5,11 +5,11 @@
         <b-row>
           <b-col cols="12" >
             <el-tabs v-model="activeName" @tab-click="handleClick">
-              <el-tab-pane label="后端开发" name="first"></el-tab-pane>
-              <el-tab-pane label="前端开发" name="second"></el-tab-pane>
-              <el-tab-pane label="大数据" name="third"></el-tab-pane>
-              <el-tab-pane label="区块链" name="fourth"></el-tab-pane>
-              <el-tab-pane label="人工智能" name="five"></el-tab-pane>
+              <el-tab-pane label="后端开发" name="1"></el-tab-pane>
+              <el-tab-pane label="前端开发" name="2"></el-tab-pane>
+              <el-tab-pane label="大数据" name="3"></el-tab-pane>
+              <el-tab-pane label="区块链" name="4"></el-tab-pane>
+              <el-tab-pane label="人工智能" name="5"></el-tab-pane>
             </el-tabs>
           </b-col>
           <b-col cols="12"  :key="index" v-for="(a,index) in articles">
@@ -144,8 +144,12 @@
       </b-col>
     </b-row>
     <el-pagination
-      layout="prev, pager, next"
-      :total="50">
+      background
+      @current-change="handleCurrentChange"
+      :current-page.sync="page.current"
+      layout="total,prev, pager, next"
+      :page-size="page.size"
+      :total="page.total">
     </el-pagination>
 
 
@@ -162,19 +166,36 @@
     },
     data(){
       return{
-        activeName: 'first',
+        activeName: '1',
         articles:[
         ],
+        page:{
+          records:[],
+          total:0,
+          size:5,
+          current:1,
+        },
+        chanels:[]
       }
     },
     mounted(){
-      axios.get(`/article/select`).then(res=>{
-        this.articles=res.data.data;
-      })
+      // axios.get(`/article/select`).then(res=>{
+      //   this.articles=res.data.data;
+      // })
+      this.getArticleList();
     },
     methods:{
       handleClick(tab, event) {
-        console.log(tab, event);
+        this.getArticleList();
+      },
+      handleCurrentChange(val){
+        this.getArticleList();
+      },
+      getArticleList(){
+        axios.get(`/article/page/${this.page.current}/${this.page.size}/${this.activeName}`).then(res=>{
+          this.page=res.data.data;
+          this.articles=this.page.records;
+        })
       }
     },
 

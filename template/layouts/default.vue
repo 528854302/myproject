@@ -68,7 +68,6 @@
   </div>
 </template>
 <script>
-  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   import UserUtils from '~/utils/user'
   export default {
@@ -89,7 +88,7 @@
     methods: {
       logout(){
         UserUtils.removeUser();
-        this.$router.push("/");
+        this.$router.go(0);
       },
       showUserInfo(){
         // var userInfo = cookie.get("userInfo");

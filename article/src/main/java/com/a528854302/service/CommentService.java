@@ -6,7 +6,9 @@ import com.a528854302.entity.TbUser;
 import com.a528854302.mapper.TbUserMapper;
 import com.a528854302.repository.CommentRepository;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -56,6 +58,9 @@ public class CommentService implements BaseService<Comment> {
 
     @Override
     public ResponseResult insert(Comment comment) {
+        if (StringUtils.isEmpty(comment.getUserid())){
+            return new ResponseResult("请先登录");
+        }
         comment.setId(IdWorker.getIdStr());
         comment.setCreatetime(new Date());
         return repository.save(comment)!=null?
@@ -64,7 +69,17 @@ public class CommentService implements BaseService<Comment> {
     }
 
     public ResponseResult<List<Comment>> selectByArticleId(String articleId) {
-        return new ResponseResult<>(repository.findByArticleid(articleId));
+
+
+//        Criteria criteria = Criteria.where("articleid").is(articleId);
+//        List<Comment> comments = mongoTemplate.find(new Query(criteria), Comment.class);
+        List<Comment> comments = repository.findByArticleid(articleId);
+        for (Comment comment : comments) {
+            TbUser tbUser = tbUserMapper.selectById(comment.getUserid());
+            comment.setAvatar(tbUser.getAvatar());
+            comment.setNickname(tbUser.getNickname());
+        }
+        return new ResponseResult<>(comments);
     }
 
     public void thumbup(String id) {

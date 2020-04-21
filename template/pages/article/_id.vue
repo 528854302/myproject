@@ -13,7 +13,9 @@
             style="max-width: 20rem;"
             class="mb-2">
             <b-card-text>
-              原创 390  粉丝 1580  获赞 583  评论 579  访问 120
+              <router-link :to="'/author/'+article.userid">
+                ta的主页
+              </router-link>
             </b-card-text>
             <div class="mt-3">
               <b-button-group>
@@ -38,48 +40,34 @@
               </b-button>
             </b-card>
             <b-card style="margin-top: 5px;">
-              <b-form-textarea
-                id="textarea-small"
-                size="sm"
-                placeholder="Small textarea"
-              ></b-form-textarea>
-              <b-button size="sm" style="float: right" variant="info">
-                发表评论
-              </b-button>
-              <div id="comment-content">
-                <b-card>
-                  <b-media>
-                    <template v-slot:aside>
-                      <router-link to="/author">
-                        <b-img src="img/avatar3.jpg" width="50" alt="placeholder"></b-img>
-                      </router-link>
-                    </template>
-                    <h5 class="mt-0">Nested Media <em style="float: right;color: #7f828b">2020-02-19 19:52:42</em></h5>
-                    <p class="mb-0">
-                      Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                      faucibus.
-                      <el-button type="text">回复</el-button>
-                      <el-button type="text">查看回复(1)</el-button>
-                    </p>
-                  </b-media>
-                </b-card>
-                <b-card>
-                  <b-media>
-                    <template v-slot:aside>
-                      <router-link to="/author">
-                        <b-img src="img/avatar5.jpg" width="50" alt="placeholder"></b-img>
-                      </router-link>
-                    </template>
-                    <h5 class="mt-0">Kobe Brant <em style="float: right;color: #7f828b">2020-02-19 19:52:42</em></h5>
 
+              <div id="comment-content">
+                <b-card v-for="(c,index) in comments" :key="index">
+                  <b-media>
+                    <template v-slot:aside>
+                      <router-link to="/author">
+                        <b-img :src="c.avatar" width="50" alt="placeholder"></b-img>
+                      </router-link>
+                    </template>
+                    <h5 class="mt-0">{{c.nickname}}<em style="float: right;color: #7f828b">{{c.createtime}}</em></h5>
                     <p class="mb-0">
-                      Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
-                      faucibus.
+                     {{c.content}}
                       <el-button type="text">回复</el-button>
                       <el-button type="text">查看回复(1)</el-button>
                     </p>
                   </b-media>
                 </b-card>
+
+                <b-form-textarea
+                  v-model="commentParams.content"
+                  id="textarea-small"
+                  size="sm"
+                  placeholder="Small textarea"
+                ></b-form-textarea>
+                <b-button size="sm" style="float: right" @click="addComment" variant="info">
+                  发表评论
+                </b-button>
+
               </div>
             </b-card>
           </div>
@@ -116,8 +104,8 @@
 </template>
 
 <script>
-  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
+  import UserUtils from '~/utils/user'
   export default {
     name: "index",
     data() {
@@ -125,20 +113,23 @@
         addFriendParams:{
           userid:'',
           friendid:'',
-          content:'你好啊，可以认识下吗'
+          content:'你好啊，可以认识下吗',
         },
         dialogFormVisible:false,
-        url: ''
+        url: '',
+        comments:[],
+        commentParams:{
+          articleid:'',
+          content:'',
+          userid:'',
+        }
       }
     },
     methods:{
       submitAddFriend(){
-        var userInfostr = cookie.get("userInfo");
-        if (userInfostr){
-          var userInfo = JSON.parse(userInfostr);
-          this.addFriendParams.friendid = this.article.userid;
-          this.addFriendParams.userid = userInfo.id;
-        }
+        this.addFriendParams.friendid = this.article.userid;
+        this.addFriendParams.userid = UserUtils.getUserInfo().id;
+
         axios.post(`/friend/insert`,this.addFriendParams).then(res=>{
           if (res.data.code==20000){
             this.$notify({
@@ -160,11 +151,29 @@
         this.dialogFormVisible=true;
 
       },
-
+      getComments(){
+        axios.get(`comment/selectByArticleId/${this.article.id}`).then(res=>{
+          this.comments=res.data.data;
+        })
+      },
+      addComment(){
+        this.commentParams.userid = UserUtils.getUserInfo().id;
+        this.commentParams.articleid = this.article.id;
+        axios.post(`comment/insert/`,this.commentParams).then(res=>{
+          if (res.data.code==20000){
+            this.comments=res.data.data;
+            this.getComments();
+            this.commentParams.content=null;
+            this.$message('评论成功');
+          }else {
+            this.$message.error(res.data.message);
+          }
+        })
+      }
 
     },
-    mounted(){
-
+    created(){
+      this.getComments();
     },
     asyncData ({ params, env, error }) {
       return axios.get(`article/select/${params.id}`).then(res=>{
@@ -190,6 +199,6 @@
     margin: 20px;
   }
   #comment-content{
-    margin-top: 10%;
+    margin-top: 10px;
   }
 </style>

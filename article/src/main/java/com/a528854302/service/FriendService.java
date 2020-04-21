@@ -41,7 +41,7 @@ public class FriendService {
     public ResponseResult insert(Friend friend){
         if (StringUtils.isEmpty(friend.getUserid())||StringUtils.isEmpty(friend.getFriendid())){
             friend.setState(0);
-            return new ResponseResult("参数不合法");
+            return new ResponseResult("请先登录");
         }
         if (friend.getUserid().equals(friend.getFriendid())){
             return new ResponseResult("不可以添加自己");
@@ -70,7 +70,6 @@ public class FriendService {
 
     public ResponseResult<List<FriendVo>> selectFriendVoByUserId(String userid) {
         List<FriendVo> friends = friendMapper.selectFriendVoByUserId(userid);
-
 
         for (FriendVo friend : friends) {
             //查询朋友发给我的，且未读的消息

@@ -56,6 +56,11 @@ public class TbUserController {
         return tbUserService.selectAll();
     }
 
+    @GetMapping("/selectAuthor/{id}")
+    public ResponseResult selectById(@PathVariable String id) {
+        return tbUserService.selectById(id);
+    }
+
     @PostMapping("/insert")
     public ResponseResult insert(@RequestBody TbUser user) {
         return tbUserService.insert(user);

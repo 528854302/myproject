@@ -57,6 +57,7 @@
 <script>
   import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
+  import UserUtils from '~/utils/user'
     export default {
         name: "index",
       data() {
@@ -69,7 +70,7 @@
             { value: '4', text: '区块链' },
             { value: '5', text: '人工智能' },
           ],
-          selected: [],
+          selected: [1],
           formData:{
             userid:null,
             content: null,
@@ -81,18 +82,19 @@
       },
       methods:{
         submit(){
-          this.formData.type=this.selected[0];
+          this.formData.channelid=this.selected[0];
           var userInfo = cookie.get("userInfo");
           if (userInfo){
             var obj = JSON.parse(userInfo);
             this.formData.userid=obj.id;
           }
+          this.formData.userid = UserUtils.getUserInfo().id;
           axios.post(`/article/insert`,this.formData).then(res=>{
             if (res.data.code==20000){
               this.$alert('发布文章成功', '提示', {
                 confirmButtonText: '确定',
               });
-              this.$router.push('./');
+              this.$router.push('/');
             } else {
               this.$message.error(res.data.code);
             }
