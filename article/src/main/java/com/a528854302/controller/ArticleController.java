@@ -25,10 +25,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/test")
-    public String test(){
-        return "ssssss";
-    }
+
 
    @GetMapping("/select")
     public ResponseResult select() {

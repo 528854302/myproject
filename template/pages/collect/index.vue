@@ -45,6 +45,7 @@
   import AppLogo from '~/components/AppLogo.vue'
   import axios from '~/plugins/axios'
   import UserUtils from '~/utils/user'
+  import loginUtils from '~/utils/loginUtils'
   export default {
     components: {
       AppLogo
@@ -57,6 +58,7 @@
       }
     },
     mounted(){
+      loginUtils.checkLogin();
       // axios.get(`/article/select`).then(res=>{
       //   this.articles=res.data.data;
       // })

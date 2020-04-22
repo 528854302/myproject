@@ -6,6 +6,7 @@ import com.a528854302.mapper.ArticleMapper;
 import com.a528854302.vo.ArticleVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -80,6 +81,9 @@ public class ArticleService implements BaseService<Article>{
      * @return
      */
     public ResponseResult insert(Article article){
+        if (StringUtils.isEmpty(article.getUserid())){
+            return new ResponseResult("未登录");
+        }
         //article.setId(String.valueOf(IdWorker.getId()));
         return articleMapper.insert(article)>0?new ResponseResult():
         new ResponseResult("failed");

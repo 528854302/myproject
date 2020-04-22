@@ -72,9 +72,9 @@
 </template>
 
 <script>
-  import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   import UserUtils from '~/utils/user'
+  import loginUtils from '~/utils/loginUtils'
   export default {
     name: "id",
     data() {
@@ -119,6 +119,7 @@
       }
     },
     mounted(){
+      loginUtils.checkLogin();
       this.getUserInfo();
       var ws = new WebSocket(`ws://localhost:8081/ws/${this.userInfo.id}`);
       ws.onopen = function (evt) {

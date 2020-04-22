@@ -58,6 +58,7 @@
   import cookie from 'js-cookie'
   import axios from '~/plugins/axios'
   import UserUtils from '~/utils/user'
+  import loginUtils from '~/utils/loginUtils'
     export default {
         name: "index",
       data() {
@@ -96,7 +97,7 @@
               });
               this.$router.push('/');
             } else {
-              this.$message.error(res.data.code);
+              this.$message.error(res.data.message);
             }
           })
         },
@@ -105,7 +106,7 @@
         },
 
         created(){
-
+          loginUtils.checkLogin();
         }
       }
     }

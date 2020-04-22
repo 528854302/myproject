@@ -3,6 +3,7 @@ package com.a528854302.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -24,7 +25,8 @@ public class RedisUtils {
         Map<String, String[]> parameterMap = request.getParameterMap();
         try {
             if (parameterMap.isEmpty()){
-                redisKey.append(IOUtils.toString(request.getInputStream(),"UTF-8"));
+                ServletInputStream inputStream = request.getInputStream();
+                redisKey.append(IOUtils.toString(inputStream,"UTF-8"));
             }else {
                 ObjectMapper objectMapper=new ObjectMapper();
                 redisKey.append(objectMapper.writeValueAsBytes(parameterMap));

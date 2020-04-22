@@ -79,6 +79,7 @@
   import AppLogo from '~/components/AppLogo.vue'
   import axios from '~/plugins/axios'
   import UserUtils from '~/utils/user'
+  import loginUtils from '~/utils/loginUtils'
   export default {
     components: {
       AppLogo
@@ -113,10 +114,12 @@
         axios.get(`/article/selectByUid/${this.userInfo.id}`).then(res=>{
           this.articles=res.data.data;
         })
-      }
+      },
+
 
     },
     created(){
+      loginUtils.checkLogin();
       this.userInfo=UserUtils.getUserInfo();
       this.getUserDetailById();
       this.getArticleListByUid();
