@@ -1,10 +1,10 @@
 
 ## Build Setup
 
-cnpm install vue bootstrap-vue bootstrap
-cnpm install js-cookie --save
-cnpm install axios
-cnpm install
+## cnpm install vue bootstrap-vue bootstrap
+## cnpm install js-cookie --save
+## cnpm install axios
+## cnpm install
 
 ```
 
